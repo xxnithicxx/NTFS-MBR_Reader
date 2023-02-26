@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NTFS-MBR Reader.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MBR/MBRReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MBR/MbrPartitionInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MBR/Partition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NtfsBootSectorReader.java" afterDir="false" />
-    </list>
+    <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,23 +32,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader\src" />
       <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MbrPartitionInfo">
-    <configuration name="MBRReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MBR.MBRReader" />
+  <component name="RunManager" selected="Application.Test">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -74,15 +67,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NtfsBootSectorReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="NtfsBootSectorReader" />
+    <configuration name="NTFSSectorReaderTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="NTFSSectorReaderTest" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TreeDirectory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.TreeDirectory" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="NTFS-MBR Reader" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestReader" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -90,10 +90,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.NTFSSectorReaderTest" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.TestReader" />
         <item itemvalue="Application.MbrPartitionInfo" />
-        <item itemvalue="Application.NtfsBootSectorReader" />
-        <item itemvalue="Application.MBRReader" />
-        <item itemvalue="Application.TreeDirectory" />
       </list>
     </recent_temporary>
   </component>
@@ -105,8 +106,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677065955465</updated>
+      <workItem from="1677425218072" duration="5279000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
