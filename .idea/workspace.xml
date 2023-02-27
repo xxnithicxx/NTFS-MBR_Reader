@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="bmd1905/create sector reader">
-      <change afterPath="$PROJECT_DIR$/src/NTFSFileClusterReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NTFSSectorReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectorReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +113,7 @@
       <workItem from="1677459878043" duration="103000" />
       <workItem from="1677459997215" duration="626000" />
       <workItem from="1677460802332" duration="2000" />
-      <workItem from="1677460819296" duration="4479000" />
+      <workItem from="1677460819296" duration="6098000" />
     </task>
     <servers />
   </component>
