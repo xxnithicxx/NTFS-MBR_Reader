@@ -15,20 +15,13 @@ public class SectorReader implements AutoCloseable{
         int position = sectorNumber * sectorSize;
         byte[] sectorData = new byte[sectorSize];
         inputStream.readFully(sectorData,position,sectorSize);
-        return byteArrayToString(sectorData);
+        return Utils.bytesToHexString(sectorData);
     }
 
     public void close() throws IOException {
         inputStream.close();
     }
 
-    private static String byteArrayToString(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x ", b).toUpperCase());
-        }
-        return sb.toString();
-    }
 }
 
 class Test {
