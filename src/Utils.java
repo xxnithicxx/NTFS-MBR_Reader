@@ -34,6 +34,14 @@ public class Utils {
 
     public static int hexStringToDecimal(String hexString)
     {
-        return Integer.parseInt(hexString,16);
+        int decimal_res = 0;
+        String[] hexStrings = hexString.split(" ");
+
+        for (String hexElement : hexStrings) {
+            int decimalElement = Integer.parseInt(hexElement, 16);
+            decimal_res += decimalElement;
+        }
+
+        return decimal_res;
     }
 }
