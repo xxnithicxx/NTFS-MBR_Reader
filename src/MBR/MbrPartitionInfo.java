@@ -9,7 +9,7 @@ public class MbrPartitionInfo {
 
     public MbrPartitionInfo() {
         try {
-            InputStream inputStream = new FileInputStream("\\\\.\\PhysicalDrive2");
+            InputStream inputStream = new FileInputStream("\\\\.\\PhysicalDrive1");
             byte[] buffer = new byte[512];
             int byteRead = inputStream.read(buffer, 0, buffer.length);
 

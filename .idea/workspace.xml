@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="bmd1905/create sector reader">
+    <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="Change hexStringToDecimal function">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectorReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MBR/MBRReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MBR/MBRReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MBR/MbrPartitionInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MBR/MbrPartitionInfo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -46,6 +53,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -56,22 +64,34 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Test">
+    <configuration name="MBRReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MBR.MBRReader" />
+      <module name="NTFS-MBR Reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MBR.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MbrPartitionInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MBR.MbrPartitionInfo" />
+      <module name="NTFS-MBR Reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MBR.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NTFSFileClusterReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NTFSFileClusterReader" />
-      <module name="NTFS-MBR Reader" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NTFSSectorReaderTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="NTFSSectorReaderTest" />
-      <module name="NTFS-MBR Reader" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NtfsBootSectorReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="NtfsBootSectorReader" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -94,10 +114,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.MBRReader" />
+        <item itemvalue="Application.MbrPartitionInfo" />
         <item itemvalue="Application.NTFSFileClusterReader" />
         <item itemvalue="Application.TestReader" />
-        <item itemvalue="Application.NtfsBootSectorReader" />
-        <item itemvalue="Application.NTFSSectorReaderTest" />
       </list>
     </recent_temporary>
   </component>
@@ -115,6 +135,35 @@
       <workItem from="1677460802332" duration="2000" />
       <workItem from="1677460819296" duration="6098000" />
     </task>
+    <task id="LOCAL-00001" summary="Change little code of BMD for more clean code">
+      <created>1677585066778</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677585066778</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add class Utils for more helper function and clean code at SectorReader">
+      <created>1677603142437</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677603142437</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix getHexValue and add hexStringToDecimal function">
+      <created>1677640733649</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677640733649</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Change hexStringToDecimal function">
+      <created>1677644546464</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677644546464</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +179,28 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Change little code of BMD for more clean code" />
+    <MESSAGE value="Add class Utils for more helper function and clean code at SectorReader" />
+    <MESSAGE value="Fix getHexValue and add hexStringToDecimal function" />
+    <MESSAGE value="Change hexStringToDecimal function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change hexStringToDecimal function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
