@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class SectorReader implements AutoCloseable {
     private final DataInputStream inputStream;
@@ -100,38 +101,31 @@ public class SectorReader implements AutoCloseable {
         return res;
     }
 
-    public String sizeOfFAT(String sectorData) throws IOException {
-        // 36->39
-        return Utils.getHexValue("0x24", sectorData, 4);
-//        String res = "";
-//        String[] hexArray = sectorData.split(" ");
-//        for (int i = 36; i <= 39; i++) {
-//            String hexElement = hexArray[i];
-//            res += hexArray[i];
-//            res += " ";
-//
-//            int decimalElement = Integer.parseInt(hexElement, 16);
-//            //System.out.print(decimalElement + " ");
-//        }
-//
-//        // Delete the last space
-//        System.out.print(res);
-//        res = res.substring(0, res.length() - 1);
-//
-//        // Convert hex to little endian
-//        res = Utils.hexToLittleEndian(res);
-//
-//        // Convert hex string to decimal
-//        int decimal_res = 0;
-//        String[] lst_res = res.split(" ");
-//
-//        for (int i = 0; i < lst_res.length; i++) {
-//            String hexElement = lst_res[i];
-//            int decimalElement = Integer.parseInt(hexElement, 16);
-//            decimal_res += decimalElement;
-//        }
-//
-//        return decimal_res;
+    public static int hexStringToDecimal(String hexString) {
+        int decimal_res = 0;
+        String[] hexStringArray = hexString.split(" ");
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : hexStringArray) {
+            sb.append(s);
+        }
+        String hexStrings = sb.toString().toLowerCase();
+        System.out.println(hexStrings);
+        decimal_res=Integer.parseInt(hexStrings,16);
+        return decimal_res;
+    }
+
+    public BigInteger sizeOfFAT(String sectorData) throws IOException {
+         String res = Utils.getHexValue("0x24", sectorData, 4);
+
+        String[] hexArray = res.split(" "); // split the string into an array of individual hexadecimal values
+        byte[] bytes = new byte[hexArray.length];
+
+        for (int i = hexArray.length - 1; i >= 0; i--) {
+            bytes[hexArray.length - 1 - i] = (byte) Integer.parseInt(hexArray[i], 16); // convert each hexadecimal value to a byte and store it in the byte array in little-endian order
+        }
+        BigInteger bigInt = new BigInteger(bytes); // create a new BigInteger from the little-endian byte array
+        return bigInt;
     }
 
 
@@ -148,16 +142,8 @@ class TestRead {
 
         try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sectorSize)) {
             byte[] sectorData = reader.readSector(sectorNumber);
-//            System.out.println(sectorData);
             String hexString = bytesToHexString(sectorData);
             System.out.println(hexString);
-//            StringBuilder hexBuilder = new StringBuilder();
-//            for (int i = 0; i < sectorData.length(); i += 2) {
-//                hexBuilder.append(sectorData.substring(i, i + 2)).append(" ");
-//            }
-//            String hexString = hexBuilder.toString().toUpperCase();
-//            System.out.println(hexString);
-
 
             reader.printFAT(hexString);
             //System.out.println(reader.printFAT(sectorData));
@@ -183,7 +169,7 @@ class TestRead {
 
             // Size of FAT
             System.out.println("Size of FAT: ");
-            String sizeFAT = reader.sizeOfFAT(hexString);
+            BigInteger sizeFAT = reader.sizeOfFAT(hexString);
             System.out.println(sizeFAT);
 
 
