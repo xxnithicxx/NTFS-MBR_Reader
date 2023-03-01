@@ -8,10 +8,14 @@
       <change afterPath="$PROJECT_DIR$/src/NTFSFileClusterReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/SectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectorReader.java" afterDir="false" />
 =======
       <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NTFSSectorReader.java" afterDir="false" />
 >>>>>>> parent of a18df11 (Renamed done)
+=======
+      <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectorReader.java" afterDir="false" />
+>>>>>>> parent of ec53724 (Added info of BS (but bug))
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
