@@ -22,7 +22,18 @@ public class Utils {
         for (byte b : bytes) {
             sb.append(String.format("%02X ", b));
         }
-
         return sb.toString();
+    }
+
+//    public static String[] checkOnBitFromHexToBinary(String hexString)
+//    {
+//        int number=Integer.parseInt(hexString,16);
+//        String[] array;
+//        return array;
+//    }
+
+    public static int hexStringToDecimal(String hexString)
+    {
+        return Integer.parseInt(hexString,16);
     }
 }
