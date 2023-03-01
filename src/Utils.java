@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Utils {
     // transfer hex byte in sector to string little endian
     //"43 56 23" -> "23 56 43"
@@ -10,9 +12,10 @@ public class Utils {
         }
         return sb.toString();
     }
+
     // give hex value from offset input and number of bytes
     public static String getHexValue(String offset, String inputString, int bytes) {
-        int decimalIndex = Integer.parseInt(offset.substring(2), 16)*3;
+        int decimalIndex = Integer.parseInt(offset.substring(2), 16) * 3;
         return inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
     }
 
@@ -25,24 +28,36 @@ public class Utils {
         return sb.toString();
     }
 
-//    public static String[] checkOnBitFromHexToBinary(String hexString)
-//    {
-//        int number=Integer.parseInt(hexString,16);
-//        String[] array;
-//        return array;
-//    }
+    public static int[] checkOnBitFromHexToBinary(String hexString) {
+        //0110 0000
+        int number = hexStringToDecimal(hexString);
+        String binaryString = Integer.toBinaryString(number);
+        // array store position of bit 1
+        int[] position = new int[binaryString.length()];
+        int index = 0;
 
-    public static int hexStringToDecimal(String hexString)
-    {
+        for (int i = 0; i < binaryString.length(); i++) {
+            if (binaryString.charAt(binaryString.length() - 1 - i) == '1')
+                position[index++] = i;
+        }
+        // resize array to remove unused elements
+        position = Arrays.copyOf(position, index);
+        return position;
+    }
+
+    public static int hexStringToDecimal(String hexString) {
         int decimal_res = 0;
         String[] hexStrings = hexString.split(" ");
 
-        for (int i = 0; i < hexStrings.length; i++) {
-            String hexElement = hexStrings[i];
+        for (String hexElement : hexStrings) {
             int decimalElement = Integer.parseInt(hexElement, 16);
             decimal_res += decimalElement;
         }
 
         return decimal_res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(hexStringToDecimal("20"));
     }
 }
