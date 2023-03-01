@@ -2,11 +2,11 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class SectorReader implements AutoCloseable{
+public class NTFSSectorReader implements AutoCloseable{
     private final DataInputStream inputStream;
     private final int sectorSize;
 
-    public SectorReader(FileInputStream fileInputStream, int sectorSize) throws IOException {
+    public NTFSSectorReader(FileInputStream fileInputStream, int sectorSize) throws IOException {
         this.inputStream = new DataInputStream(fileInputStream);
         this.sectorSize = sectorSize;
     }
@@ -82,7 +82,7 @@ class Test {
         int sectorSize = 512;
         int sectorNumber = 0;
 
-        try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sectorSize)) {
+        try (NTFSSectorReader reader = new NTFSSectorReader(new FileInputStream(filePath), sectorSize)) {
             String sectorData = reader.readSector(sectorNumber);
             System.out.println(sectorData);
             reader.printFAT(sectorData);
@@ -111,5 +111,9 @@ class Test {
         } catch (IOException e) {
             System.err.println("Error reading sector: " + e.getMessage());
         }
+
+
+
+
     }
 }
