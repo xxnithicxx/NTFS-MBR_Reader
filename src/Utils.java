@@ -16,7 +16,8 @@ public class Utils {
     // give hex value from offset input and number of bytes
     public static String getHexValue(String offset, String inputString, int bytes) {
         int decimalIndex = Integer.parseInt(offset.substring(2), 16) * 3;
-        return inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
+        String hexString = inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
+        return hexToLittleEndian(hexString);
     }
 
     public static String bytesToHexString(byte[] bytes) {
