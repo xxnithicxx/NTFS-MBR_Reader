@@ -12,13 +12,6 @@ public class SectorReader implements AutoCloseable {
         this.sectorSize = sectorSize;
     }
 
-//    public String readSector(int sectorNumber) throws IOException {
-//        int position = sectorNumber * sectorSize;
-//        byte[] sectorData = new byte[sectorSize];
-//        inputStream.readFully(sectorData, position, sectorSize);
-//        return Utils.bytesToHexString(sectorData);
-//    }
-
     public byte[] readSector(long sectorNumber) throws IOException {
         long position = sectorNumber * sectorSize;
         byte[] sectorData = new byte[sectorSize];
@@ -96,7 +89,6 @@ public class SectorReader implements AutoCloseable {
             String hexElement = hexArray[i];
             int decimalElement = Integer.parseInt(hexElement, 16);
             res += decimalElement;
-            //System.out.print(decimalElement + " ");
         }
         return res;
     }

@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
 out/
+.idea/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -26,5 +27,5 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
-.idea/workspace.xml
+.DS_Store/
+.idea/workspace.xml/
