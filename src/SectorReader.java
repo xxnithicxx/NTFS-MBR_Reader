@@ -19,10 +19,10 @@ public class SectorReader implements AutoCloseable {
 //        return Utils.bytesToHexString(sectorData);
 //    }
 
-    public byte[] readSector(long sectorNumber) throws IOException {
-        long position = sectorNumber * sectorSize;
+    public byte[] readSector(int sectorNumber) throws IOException {
+        int position = sectorNumber * sectorSize;
         byte[] sectorData = new byte[sectorSize];
-        inputStream.readFully(sectorData);
+        inputStream.read(sectorData,position,sectorSize);
         //return byteArrayToString(sectorData);
         return sectorData;
     }
@@ -44,22 +44,22 @@ public class SectorReader implements AutoCloseable {
 
     public int nSectorPerCluster(String sectorData) throws IOException {
         String hexString = Utils.getHexValue("0x0D", sectorData, 1);
-        return Utils.hexStringToDecimal(hexString);
+        return Utils.hexStringToDecimal(Utils.hexToLittleEndian(hexString));
     }
 
     public int StartClusterOfRDET(String sectorData) throws IOException {
         String res = Utils.getHexValue("0x2C", sectorData, 4);
-        return Utils.hexStringToDecimal(res);
+        return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
     public int nSectorOfBoostSector(String sectorData) throws IOException {
         String res = Utils.getHexValue("0x0E", sectorData, 2);
-        return Utils.hexStringToDecimal(res);
+        return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
     public int sizeOfFAT(String sectorData) throws IOException {
         String res = Utils.getHexValue("0x24", sectorData, 4);
-        return Utils.hexStringToDecimal(res);
+        return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
 

@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Utils {
     // transfer hex byte in sector to string little endian
@@ -16,8 +17,7 @@ public class Utils {
     // give hex value from offset input and number of bytes
     public static String getHexValue(String offset, String inputString, int bytes) {
         int decimalIndex = Integer.parseInt(offset.substring(2), 16) * 3;
-        String hexString = inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
-        return hexToLittleEndian(hexString);
+        return inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
     }
 
     public static String bytesToHexString(byte[] bytes) {
@@ -49,16 +49,20 @@ public class Utils {
     public static int hexStringToDecimal(String hexString) {
         int decimal_res = 0;
         String[] hexStrings = hexString.split(" ");
-
-        for (String hexElement : hexStrings) {
-            int decimalElement = Integer.parseInt(hexElement, 16);
-            decimal_res += decimalElement;
+        StringBuilder sb = new StringBuilder();
+        for (String i : hexStrings) {
+            assert false;
+            sb.append(i);
         }
+
+        hexString = sb.toString();
+
+        decimal_res=Integer.parseInt(hexString,16);
 
         return decimal_res;
     }
 
     public static void main(String[] args) {
-        System.out.println(hexStringToDecimal("20"));
+        System.out.println(hexStringToDecimal("A4 D2"));
     }
 }
