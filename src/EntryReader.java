@@ -1,9 +1,9 @@
-import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 
 public class EntryReader implements AutoCloseable {
     private final String entryHexString;
@@ -48,13 +48,12 @@ public class EntryReader implements AutoCloseable {
 }
 
 class EntryTestReader {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String filePath = "\\\\.\\E:";
         int nSectorPerCl = 0;
         int startClOfRDET = 0;
         int nSectorPerBs = 0;
         int sizeFAT = 0;
-
 
 
         // Get RDET info
@@ -68,7 +67,7 @@ class EntryTestReader {
             startClOfRDET = reader.StartClusterOfRDET(hexString);
             nSectorPerBs = reader.nSectorOfBoostSector(hexString);
             sizeFAT = reader.sizeOfFAT(hexString);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error reading sector: " + e.getMessage());
         }
 
@@ -77,7 +76,7 @@ class EntryTestReader {
 
         // RDET reader
         int startRDET = startSectorOfRDET(nSectorPerCl, nSectorPerBs, sizeFAT, startClOfRDET);
-        System.out.println(startRDET);
+        //System.out.println(startRDET);
         int sizeRDET = 512;
         String entryHexString = null;
         try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sizeRDET)) {
@@ -89,15 +88,15 @@ class EntryTestReader {
 
 
 
-
         // Entry reader
         try (EntryReader reader = new EntryReader(entryHexString)) {
             String[] entryArray = reader.read(entryHexString);
-            System.out.println(entryArray.length);
+            //System.out.println(entryArray.length);
             for (int i=0; i < entryArray.length; i++){
                 System.out.println(entryArray[i]);
             }
-
+            assert entryHexString != null;
+            reader.read(entryHexString);
         } catch (Exception e) {
             System.err.println("Error reading sector: " + e.getMessage());
         }
