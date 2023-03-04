@@ -12,9 +12,9 @@ public class SectorReader implements AutoCloseable {
         this.sectorSize = sectorSize;
     }
 
-    public byte[] readSector(int sectorNumber) throws IOException {
+    public byte[] readSector(int sectorIndex) throws IOException {
         byte[] sectorData = new byte[sectorSize];
-        long position = (long) sectorNumber * (long) sectorSize;
+        long position = (long) sectorIndex * (long) sectorSize;
         inputStream.skip(position);
         int bytesRead = inputStream.read(sectorData, 0, sectorSize);
         if (bytesRead < sectorSize) {
@@ -38,22 +38,26 @@ public class SectorReader implements AutoCloseable {
     }
 
     public int nSectorPerCluster(String sectorData) throws IOException {
-        String hexString = Utils.getHexValue("0x0D", sectorData, 1);
+        String hexString = Utils.getHexValueFromSector("0x0D", sectorData, 1);
         return Utils.hexStringToDecimal(Utils.hexToLittleEndian(hexString));
     }
 
     public int StartClusterOfRDET(String sectorData) throws IOException {
-        String res = Utils.getHexValue("0x2C", sectorData, 4);
+        String res = Utils.getHexValueFromSector("0x2C", sectorData, 4);
         return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
     public int nSectorOfBoostSector(String sectorData) throws IOException {
-        String res = Utils.getHexValue("0x0E", sectorData, 2);
+        String res = Utils.getHexValueFromSector("0x0E", sectorData, 2);
         return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
     public int sizeOfFAT(String sectorData) throws IOException {
-        String res = Utils.getHexValue("0x24", sectorData, 4);
+        String res = Utils.getHexValueFromSector("0x24", sectorData, 4);
+        return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
+    }
+    public int numberOfFAT(String sectorData) {
+        String res = Utils.getHexValueFromSector("0x10", sectorData, 1);
         return Utils.hexStringToDecimal(Utils.hexToLittleEndian(res));
     }
 
@@ -64,7 +68,7 @@ public class SectorReader implements AutoCloseable {
 
 class TestRead {
     public static void main(String[] args) {
-        String filePath = "\\\\.\\E:";
+        String filePath = "\\\\.\\D:";
         int sectorSize = 512;
         int sectorNumber = 0;
 
