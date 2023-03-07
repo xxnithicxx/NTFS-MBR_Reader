@@ -4,18 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="Add FATReader">
-      <change afterPath="$PROJECT_DIR$/src/Reader/FATReader.java" afterDir="false" />
+    <list default="true" id="a64a164b-b1fe-456a-803a-8b3fa766dd05" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/Global.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/ItemDataObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ItemDataObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ItemEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ItemEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileClusterReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/FileClusterReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/SectorReader.java" afterDir="false" />
-    </list>
-    <list id="a676b664-050b-451d-b7df-95caa6b30f1e" name="Changes by HP" comment="">
-      <change beforePath="$PROJECT_DIR$/src/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Helper/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reader/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
+    </list>
+    <list id="3e12b5e0-1183-4f09-8c89-024309f6cc22" name="Changes by HP" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Reader/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reader/FATReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/FATReader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,14 +28,6 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/io/ByteArrayOutputStream.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/util/Objects.java" root0="SKIP_INSPECTION" />
@@ -45,83 +36,29 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/Reader/EntryReader.java">
       <ranges>
-        <range start1="0" end1="0" start2="0" end2="2" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="5" end1="5" start2="7" end2="8" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="10" end1="10" start2="13" end2="19" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="13" end1="13" start2="22" end2="23" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="46" end1="48" start2="56" end2="59" changelist="a676b664-050b-451d-b7df-95caa6b30f1e" />
-        <range start1="50" end1="56" start2="61" end2="64" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="57" end1="59" start2="65" end2="66" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="73" end1="74" start2="80" end2="84" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="76" end1="76" start2="86" end2="87" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="84" end1="86" start2="95" end2="96" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="97" end1="98" start2="107" end2="108" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="101" end1="102" start2="111" end2="112" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="104" end1="104" start2="114" end2="115" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="112" end1="113" start2="123" end2="123" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="118" end1="118" start2="128" end2="148" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
-        <range start1="122" end1="122" start2="152" end2="162" changelist="4359bffd-7a43-496d-948d-abeb8e9c4ff5" />
+        <range start1="2" end1="2" start2="2" end2="3" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="57" end1="59" start2="58" end2="60" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
+        <range start1="61" end1="63" start2="62" end2="64" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
+        <range start1="65" end1="66" start2="66" end2="67" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
+        <range start1="77" end1="77" start2="78" end2="81" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="125" end1="126" start2="129" end2="130" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="141" end1="142" start2="145" end2="146" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="155" end1="156" start2="159" end2="160" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
+        <range start1="157" end1="159" start2="161" end2="162" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
       </ranges>
     </file>
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="2M5mjfvgMxwMSayehLfZ8429bxs" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader\src" />
-      <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.TreeDirectory">
-  <component name="RunManager" selected="Application.FileClusterReader">
-    <configuration name="DirectoryTree" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Entity.DirectoryTree" />
+  <component name="RunManager" selected="Application.FATReader">
+    <configuration name="FATReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Reader.FATReader" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileClusterReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Reader.FileClusterReader" />
-      <module name="NTFS-MBR Reader" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ItemEntry" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Entity.ItemEntry" />
-      <module name="NTFS-MBR Reader" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Reader.EntryReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Reader.EntryReader" />
+    <configuration name="Global" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Entity.Global" />
       <module name="NTFS-MBR Reader" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -136,86 +73,31 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FileClusterReader" />
-        <item itemvalue="Application.Reader.EntryReader" />
-        <item itemvalue="Application.ItemEntry" />
+        <item itemvalue="Application.FATReader" />
+        <item itemvalue="Application.Global" />
         <item itemvalue="Application.TreeDirectory" />
-        <item itemvalue="Application.ItemEntry" />
-        <item itemvalue="Application.DirectoryTree" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="" />
-      <created>1677065955465</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1677065955465</updated>
-      <workItem from="1677425218072" duration="5791000" />
-      <workItem from="1677459878043" duration="103000" />
-      <workItem from="1677459997215" duration="626000" />
-      <workItem from="1677460802332" duration="2000" />
-      <workItem from="1677460819296" duration="4479000" />
-    </task>
-    <task id="LOCAL-00001" summary="Refactor master">
-      <created>1678153705413</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1678153705413</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="true" />
-                </map>
-              </option>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="GUI_NT" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactor master" />
-    <MESSAGE value="Add FATReader" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add FATReader" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
-          <option name="timeStamp" value="2" />
+        <breakpoint type="java-exception">
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="11" />
         </breakpoint>
         <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.StringIndexOutOfBoundsException" package="java.lang" />
-          <option name="timeStamp" value="7" />
+          <properties class="java.lang.NumberFormatException" package="java.lang" />
+          <option name="timeStamp" value="12" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Reader/FATReader.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

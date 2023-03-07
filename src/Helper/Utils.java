@@ -52,7 +52,6 @@ public class Utils {
         return position;
     }
 
-
     public static int hexStringToDecimal(String hexString) {
         int decimal_res;
         String[] hexStrings = hexString.split(" ");

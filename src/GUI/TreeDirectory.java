@@ -1,4 +1,3 @@
-
 package GUI;
 
 import File.*;
@@ -19,13 +18,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.awt.GridLayout;
 
-public class TreeDirectory extends JPanel
-        implements TreeSelectionListener {
+public class TreeDirectory extends JPanel implements TreeSelectionListener {
     private JEditorPane htmlPane;
     private JTree tree;
     private URL helpURL;
     private static boolean DEBUG = false;
-
     private static boolean playWithLineStyle = false;
     private static String lineStyle = "Horizontal";
     private static boolean useSystemLookAndFeel = false;
@@ -33,7 +30,6 @@ public class TreeDirectory extends JPanel
         super(new GridLayout(1,0));
 
         //Create the nodes.
-
         int pos = path.lastIndexOf("/");
         System.out.println(pos);
         String name = path.substring(pos+1,path.length());
@@ -68,9 +64,7 @@ public class TreeDirectory extends JPanel
             FileInfo file = (FileInfo)nodeInfo;
             try {
                 file.displayFile(file.pathFile);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (BadLocationException ex) {
+            } catch (IOException | BadLocationException ex) {
                 throw new RuntimeException(ex);
             }
             if (DEBUG) {
@@ -110,7 +104,7 @@ public class TreeDirectory extends JPanel
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI("/Users/user/mindX");
+                createAndShowGUI("C:/");
             }
         });
     }

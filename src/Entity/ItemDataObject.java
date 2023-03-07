@@ -59,8 +59,6 @@ public class ItemDataObject {
             } catch (IOException e) {
                 System.err.println("Error reading cluster: " + e.getMessage());
             }
-
-
         }
     }
 

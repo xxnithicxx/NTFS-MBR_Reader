@@ -1,5 +1,6 @@
 package Reader;
 
+import Entity.Global;
 import Helper.Utils;
 
 import java.io.FileInputStream;
@@ -55,15 +56,15 @@ public class EntryReader implements AutoCloseable {
     }
 
     public long startSectorFromCluster(int nSectorPerCl, int nSectorPerBs, int sizeFAT, int numberOfFat,
-                                   long ClusterIndex) {
-        return nSectorPerBs + sizeFAT * numberOfFat + nSectorPerCl * (ClusterIndex - 2);
+                                       long ClusterIndex) {
+        return nSectorPerBs + (long) sizeFAT * numberOfFat + nSectorPerCl * (ClusterIndex - 2);
     }
 
-    public long startSectorFromCluster(long ClusterIndex){
-        return startSectorFromCluster(this.nSectorPerCl,this.nSectorPerBs,this.sizeFAT,numberOfFat,ClusterIndex);
+    public long startSectorFromCluster(long ClusterIndex) {
+        return startSectorFromCluster(this.nSectorPerCl, this.nSectorPerBs, this.sizeFAT, numberOfFat, ClusterIndex);
     }
 
-    public void getRDETInfo(){
+    public void getRDETInfo() {
         int sectorSize = 512;
         int sectorIndex = 0;
         try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sectorSize)) {
@@ -75,6 +76,9 @@ public class EntryReader implements AutoCloseable {
             nSectorPerBs = reader.nSectorOfBoostSector(hexString);
             sizeFAT = reader.sizeOfFAT(hexString);
             numberOfFat = reader.numberOfFAT(hexString);
+
+            Global.sizeFAT = sizeFAT;
+            Global.startFAT = nSectorPerBs;
         } catch (Exception e) {
             System.err.println("Error reading Boot : " + e.getMessage());
         }
@@ -123,7 +127,7 @@ public class EntryReader implements AutoCloseable {
                 temp = new ArrayList<>();
             }
         }
-        
+
         return res;
     }
 
@@ -139,7 +143,7 @@ public class EntryReader implements AutoCloseable {
         return startClOfRDET;
     }
 
-    public int getnSectorPerBs() {
+    public int getNSectorPerBs() {
         return nSectorPerBs;
     }
 
@@ -153,10 +157,9 @@ public class EntryReader implements AutoCloseable {
     }
 
     public static void main(String[] args) throws IOException {
-        String filePath="\\\\.\\D:";
+        String filePath = "\\\\.\\D:";
 
-        try(EntryReader entryReader=new EntryReader(filePath))
-        {
+        try (EntryReader entryReader = new EntryReader(filePath)) {
             System.out.println(Arrays.toString(entryReader.readEntryFromRDET()));
         }
 
