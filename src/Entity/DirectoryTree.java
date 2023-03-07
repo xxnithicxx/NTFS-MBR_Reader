@@ -61,7 +61,6 @@ public class DirectoryTree {
         } else {
             this.fileNames.put(name, 1);
         }
-
     }
 
     public ItemDataObject getRoot() {

@@ -24,6 +24,17 @@ public class ItemDataObject {
         this.status = status;
         this.sectorStart = sectorStart;
         this.isFolder = isFolder;
+
+//        TODO: Check if this is a folder and go to the sector to get the childrens
+        if (isFolder) {
+            this.childrens = new ArrayList<>();
+            this.nextChild = 0;
+        }
+    }
+
+    public ItemDataObject(String name, boolean isFolder) {
+        this.name = name;
+        this.isFolder = isFolder;
     }
 
     public long getSize() {
