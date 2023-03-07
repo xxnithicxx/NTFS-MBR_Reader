@@ -97,6 +97,7 @@
       <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader" />
     </key>
   </component>
+  <component name="RunManager" selected="Application.TreeDirectory">
   <component name="RunManager" selected="Application.FileClusterReader">
     <configuration name="DirectoryTree" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Entity.DirectoryTree" />
@@ -139,6 +140,7 @@
         <item itemvalue="Application.Reader.EntryReader" />
         <item itemvalue="Application.ItemEntry" />
         <item itemvalue="Application.TreeDirectory" />
+        <item itemvalue="Application.ItemEntry" />
         <item itemvalue="Application.DirectoryTree" />
       </list>
     </recent_temporary>
@@ -186,7 +188,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/bmd1905_read_raw_data" />
+                        <option value="GUI_NT" />
                       </list>
                     </value>
                   </entry>
