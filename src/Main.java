@@ -9,13 +9,12 @@ public class Main {
     public static void main(String[] args) {
         try (EntryReader entryReader = new EntryReader(Global.mainPath)) {
             ArrayList<ArrayList<String>> entrys = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());
-
-            ItemEntry item = new ItemEntry();
-            item.parse(entrys.get(3));
-
-            FATReader fatReader = new FATReader();
-            var array=fatReader.readFAT(7);
-            System.out.println(array);
+            for (var i : entrys) {
+                ItemEntry item = new ItemEntry();
+                item.parse(i);
+                System.out.println(item.getName());
+                System.out.println(item.getSize());
+            }
         }
     }
 }
