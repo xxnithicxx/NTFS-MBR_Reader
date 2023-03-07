@@ -54,8 +54,9 @@ public class EntryReader implements AutoCloseable {
         return resArray;
     }
 
-    public static int startSectorOfRDET(int nSectorPerCl, int nSectorPerBs, int sizeFAT, int numberOfFat, int startClOfRDET) {
-        return nSectorPerBs + sizeFAT * numberOfFat + nSectorPerCl * (startClOfRDET - 2);
+    public long startSectorFromCluster(int nSectorPerCl, int nSectorPerBs, int sizeFAT, int numberOfFat,
+                                   long ClusterIndex) {
+        return nSectorPerBs + sizeFAT * numberOfFat + nSectorPerCl * (ClusterIndex - 2);
     }
 
     public long startSectorFromCluster(long ClusterIndex){
