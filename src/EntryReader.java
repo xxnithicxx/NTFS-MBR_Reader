@@ -91,14 +91,14 @@ public class EntryReader implements AutoCloseable {
         return entryArray;
     }
 
-    public boolean typeEntry(String typeByte) {
+    public static boolean typeEntry(String typeByte) {
         return !Objects.equals(typeByte, "0F");
     }
 
-    public ArrayList<ArrayList<String>> splitIntoItem(String[] Entrys) {
+    static ArrayList<ArrayList<String>> splitIntoItem(String[] Entries) {
         ArrayList<ArrayList<String>> res = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
-        for (String i : Entrys) {
+        for (String i : Entries) {
             String typeByte = Utils.getHexValueFromSector("0x0B", i, 1);
             boolean type = typeEntry(typeByte);
 
@@ -106,7 +106,6 @@ public class EntryReader implements AutoCloseable {
             if (type) {
                 res.add(temp);
                 temp = new ArrayList<>();
-
             }
         }
         
@@ -121,11 +120,11 @@ public class EntryReader implements AutoCloseable {
 
 class EntryTestReader {
     public static void main(String[] args) throws IOException {
-        String filePath = "\\\\.\\D:";
+        String filePath = "\\\\.\\E:";
         try (EntryReader entryReader = new EntryReader(filePath)) {
-            String[] Entrys=entryReader.readEntry();
+            String[] Entries = entryReader.readEntry();
 
-            ArrayList<ArrayList<String>> items= entryReader.splitIntoItem(Entrys);
+            ArrayList<ArrayList<String>> items = entryReader.splitIntoItem(Entries);
             System.out.println((items));
         }
     }
