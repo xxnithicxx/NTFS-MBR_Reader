@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4359bffd-7a43-496d-948d-abeb8e9c4ff5" name="Changes" comment="bmd1905/create sector reader">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/File/FileInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/File/FileOperation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/DirectoryTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/DirectoryTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ItemEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ItemEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EntryReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helper/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MBR/MBRReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MBR/MBRReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NTFSFileClusterReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileClusterReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NTFSSectorReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NtfsBootSectorReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SectorReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SectorReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,11 +29,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/io/ByteArrayOutputStream.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/util/Objects.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/jdk/internal/util/Preconditions.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -77,7 +62,7 @@
       <recent name="C:\Study\CPP\HK5\OS\NTFS\NTFS-MBR Reader" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ItemEntry">
+  <component name="RunManager" selected="Application.TreeDirectory">
     <configuration name="DirectoryTree" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Entity.DirectoryTree" />
       <module name="NTFS-MBR Reader" />
@@ -115,8 +100,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ItemEntry" />
         <item itemvalue="Application.TreeDirectory" />
+        <item itemvalue="Application.ItemEntry" />
         <item itemvalue="Application.DirectoryTree" />
         <item itemvalue="Application.TestReader" />
         <item itemvalue="Application.Test" />
@@ -158,7 +143,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/bmd1905_read_raw_data" />
+                        <option value="GUI_NT" />
                       </list>
                     </value>
                   </entry>
