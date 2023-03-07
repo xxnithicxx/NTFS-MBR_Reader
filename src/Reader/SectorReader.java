@@ -1,3 +1,5 @@
+package Reader;
+
 import Helper.Utils;
 
 import java.io.DataInputStream;
@@ -13,7 +15,7 @@ public class SectorReader implements AutoCloseable{
         this.sectorSize = sectorSize;
     }
 
-    public byte[] readSector(int sectorIndex) throws IOException {
+    public byte[] readSector(long sectorIndex) throws IOException {
         byte[] sectorData = new byte[sectorSize];
         long position = (long) sectorIndex * (long) sectorSize;
         inputStream.skip(position);

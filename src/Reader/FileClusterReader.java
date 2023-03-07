@@ -1,3 +1,5 @@
+package Reader;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -12,11 +14,19 @@ public class FileClusterReader implements AutoCloseable{
 
     public FileClusterReader(Path filePath, int bytesPerCluster) throws IOException {
         this.fileChannel = FileChannel.open(filePath, StandardOpenOption.READ);
-        this.bytesPerCluster = bytesPerCluster;
+
+        try (EntryReader entryReader = new EntryReader("\\\\.\\E:")) {
+            this.bytesPerCluster = entryReader.getnSectorPerCl() * 512;
+        }
     }
 
     public byte[] readCluster(long clusterNumber) throws IOException {
-        long position = clusterNumber * bytesPerCluster;
+        long position;
+        try (EntryReader entryReader = new EntryReader("\\\\.\\E:")) {
+            position = entryReader.startSectorFromCluster(clusterNumber);
+
+        }
+
         ByteBuffer buffer = ByteBuffer.allocate(bytesPerCluster);
         fileChannel.position(position);
         fileChannel.read(buffer);
@@ -28,7 +38,7 @@ public class FileClusterReader implements AutoCloseable{
     }
 
     public static void main(String[] args) {
-        String filePath = "\\\\.\\F:";
+        String filePath = "\\\\.\\E:";
         int bytesPerCluster = 4096; // Default value for NTFS file systems
 
         try (FileClusterReader reader = new FileClusterReader(Paths.get(filePath), bytesPerCluster)) {

@@ -15,6 +15,11 @@ public class ItemEntry {
         this.entryList = new ArrayList<>();
     }
 
+    public ItemEntry(ArrayList<String> entryList) {
+        this.entryList = new ArrayList<>();
+        parse(entryList);
+    }
+
     public void parse(ArrayList<String> entry) {
         for (int i = entry.size(); i > 0; i--) {
             this.entryList.add(entry.get(i - 1));
