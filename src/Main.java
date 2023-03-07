@@ -1,7 +1,6 @@
 import Entity.Global;
 import Entity.ItemEntry;
 import Reader.EntryReader;
-import Reader.FATReader;
 
 import java.util.ArrayList;
 

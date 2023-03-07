@@ -101,7 +101,7 @@ public class EntryReader implements AutoCloseable {
                 byte[] sectorData = reader.readSector(startRDET++);
                 temp = Utils.bytesToHexString(sectorData);
                 entryHexString.append(temp);
-            } while (!temp.startsWith("00"));
+            } while (temp.startsWith("00"));
 
         } catch (IOException e) {
             System.err.println("Error reading RDET: " + e.getMessage());

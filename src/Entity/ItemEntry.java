@@ -27,12 +27,17 @@ public class ItemEntry {
     }
 
     public String getName() {
+        if (isDeleted())
+            return "Deleted";
+
         if (this.entryList.size() == 1) {
             String temp;
             temp = getHexValueFromSector("0x00", this.entryList.get(0), 8);
             String name = byteArrayToAsciiString(hexStringToByteArray(temp));
             temp = getHexValueFromSector("0x08", this.entryList.get(0), 3);
             String extension = byteArrayToAsciiString(hexStringToByteArray(temp));
+
+            name = name.trim();
 
             return name + "." + extension;
         }
@@ -47,7 +52,7 @@ public class ItemEntry {
             byte currentByte = 0x00;
 
             for (byte b : tempBytes) {
-                if (Byte.compare(b, currentByte) == 0 && Byte.compare(b, (byte) 0x00) == 0) {
+                if (b == currentByte && b == (byte) 0x00) {
                     isLast = true;
                     break;
                 }
@@ -62,7 +67,7 @@ public class ItemEntry {
                 currentByte = 0x00;
 
                 for (byte b : tempBytes) {
-                    if (Byte.compare(b, currentByte) == 0 && Byte.compare(b, (byte) 0x00) == 0) {
+                    if (b == currentByte && b == (byte) 0x00) {
                         isLast = true;
                         break;
                     }
@@ -78,7 +83,7 @@ public class ItemEntry {
                 currentByte = 0x00;
 
                 for (byte b : tempBytes) {
-                    if (Byte.compare(b, currentByte) == 0 && Byte.compare(b, (byte) 0x00) == 0) {
+                    if (b == currentByte && b == (byte) 0x00) {
                         break;
                     }
 
@@ -102,12 +107,18 @@ public class ItemEntry {
 //     TODO: Implement get attributes
 
     public long getSize() {
+        if (isDeleted())
+            return 0;
+
         String temp = Utils.getHexValueFromSector("0x1C", this.entryList.get(0), 4);
         temp = Utils.hexToLittleEndian(temp);
         return hexStringToDecimal(temp);
     }
 
     public long getClusterNumber() {
+        if (isDeleted())
+            return -1;
+
         if (this.entryList.size() == 1) {
             String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(0), 4);
             return hexStringToDecimal(temp);
@@ -138,28 +149,5 @@ public class ItemEntry {
 
     public boolean isMainEntry(String entryData) {
         return entryData.startsWith("0F", 33);
-    }
-
-    public static void main(String[] args) {
-        ArrayList<String> entry = new ArrayList<>();
-        entry.add("44 63 00 78 00 00 00 FF FF FF FF 0F 00 82 FF FF FF FF FF FF FF FF FF FF FF FF 00 00 FF FF FF FF");
-        entry.add("03 6E 00 67 00 20 00 74 00 AD 1E 0F 00 E1 70 00 20 00 74 00 69 00 6E 00 2E 00 00 00 64 00 6F 00");
-        entry.add("02 75 00 A3 1E 6E 00 20 00 6C 00 0F 00 E1 ED 00 20 00 68 00 C7 1E 20 00 74 00 00 00 68 00 D1 1E");
-        entry.add("01 50 00 72 00 6F 00 6A 00 65 00 0F 00 E1 63 00 74 00 20 00 31 00 20 00 2D 00 00 00 20 00 51 00");
-        entry.add("50 52 4F 4A 45 43 7E 32 44 4F 43 20 00 67 11 4D 64 56 64 56 00 00 43 50 5B 56 07 00 48 54 00 00");
-        ItemEntry itemEntry = new ItemEntry();
-        itemEntry.parse(entry);
-
-        String str = itemEntry.getName();
-//      This is the UTF-16LE encoding of the string
-        byte[] utf16Bytes = str.getBytes(StandardCharsets.UTF_16LE);
-
-        System.out.println(str);
-
-//        for (byte b : utf16Bytes) {
-//            System.out.printf("%02X ", b);
-//        }
-
-        System.out.println(itemEntry.getSize());
     }
 }
