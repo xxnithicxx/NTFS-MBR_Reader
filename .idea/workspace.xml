@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a64a164b-b1fe-456a-803a-8b3fa766dd05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Global.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_6_2023_12_22_AM__Changes_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ItemDataObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ItemDataObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TreeDirectory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helper/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Global.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Global.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Reader/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reader/FATReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/FATReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reader/FileClusterReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/FileClusterReader.java" afterDir="false" />
     </list>
-    <list id="3e12b5e0-1183-4f09-8c89-024309f6cc22" name="Changes by HP" comment="">
+    <list id="989afb34-2c9e-4cad-8c23-bf5c83c2b9d8" name="Changes by Dell" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Entity/ItemEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ItemEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helper/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Reader/EntryReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/EntryReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Reader/FATReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reader/FATReader.java" afterDir="false" />
     </list>
+    <list id="3e12b5e0-1183-4f09-8c89-024309f6cc22" name="Changes by HP" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,28 +33,58 @@
       </list>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/io/ByteArrayOutputStream.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/java/util/Objects.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-18.0.1.1/lib/src.zip!/java.base/jdk/internal/util/Preconditions.java" root0="SKIP_INSPECTION" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/Reader/EntryReader.java">
       <ranges>
-        <range start1="2" end1="2" start2="2" end2="3" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
-        <range start1="57" end1="59" start2="58" end2="60" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
-        <range start1="61" end1="63" start2="62" end2="64" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
-        <range start1="65" end1="66" start2="66" end2="67" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
-        <range start1="77" end1="77" start2="78" end2="81" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
-        <range start1="125" end1="126" start2="129" end2="130" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
-        <range start1="141" end1="142" start2="145" end2="146" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
-        <range start1="155" end1="156" start2="159" end2="160" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
-        <range start1="157" end1="159" start2="161" end2="162" changelist="3e12b5e0-1183-4f09-8c89-024309f6cc22" />
+        <range start1="102" end1="103" start2="102" end2="103" changelist="989afb34-2c9e-4cad-8c23-bf5c83c2b9d8" />
+        <range start1="133" end1="134" start2="133" end2="134" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/Reader/FATReader.java">
+      <ranges>
+        <range start1="9" end1="12" start2="9" end2="10" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="19" end1="22" start2="17" end2="18" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="25" end1="26" start2="21" end2="23" changelist="989afb34-2c9e-4cad-8c23-bf5c83c2b9d8" />
+        <range start1="27" end1="27" start2="24" end2="25" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="30" end1="31" start2="28" end2="30" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="32" end1="35" start2="31" end2="33" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
+        <range start1="38" end1="43" start2="36" end2="36" changelist="a64a164b-b1fe-456a-803a-8b3fa766dd05" />
       </ranges>
     </file>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Mfpy2q1i7ukPRki7wPm2lyWYfx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="RunManager" selected="Application.FATReader">
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "preferences.general"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="EntryReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Reader.EntryReader" />
+      <module name="NTFS-MBR Reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Reader.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FATReader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Reader.FATReader" />
       <module name="NTFS-MBR Reader" />
@@ -64,6 +99,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="NTFS-MBR Reader" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TreeDirectory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.TreeDirectory" />
       <module name="NTFS-MBR Reader" />
@@ -73,14 +115,28 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.FATReader" />
+        <item itemvalue="Application.EntryReader" />
         <item itemvalue="Application.Global" />
         <item itemvalue="Application.TreeDirectory" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -95,8 +151,13 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Reader/FATReader.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="13" />
+          <line>32</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Reader/FATReader.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

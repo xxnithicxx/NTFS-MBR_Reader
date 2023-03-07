@@ -16,7 +16,7 @@ public class FileClusterReader implements AutoCloseable{
         this.fileChannel = FileChannel.open(filePath, StandardOpenOption.READ);
 
         try (EntryReader entryReader = new EntryReader("\\\\.\\E:")) {
-            this.bytesPerCluster = entryReader.getnSectorPerCl() * 512;
+            this.bytesPerCluster = entryReader.getNSectorPerCl() * 512;
         }
     }
 

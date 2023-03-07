@@ -131,7 +131,7 @@ public class EntryReader implements AutoCloseable {
         return res;
     }
 
-    public int getnSectorPerCl() {
+    public int getNSectorPerCl() {
         return nSectorPerCl;
     }
 
