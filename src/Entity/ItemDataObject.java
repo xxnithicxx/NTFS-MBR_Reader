@@ -5,7 +5,12 @@
 
 package Entity;
 
+import Reader.FileClusterReader;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,28 +18,50 @@ public class ItemDataObject {
     private String name;
     private long size;
     private String status;
-    private long sectorStart;
+    private long startCluster;
     private boolean isFolder;
     private List<ItemDataObject> childrens = null;
     private int nextChild;
 
-    public ItemDataObject(String name, long size, String status, long sectorStart, boolean isFolder) {
+    public ItemDataObject(String name, long size, String status, long startCluster, boolean isFolder) {
         this.name = name;
         this.size = size;
         this.status = status;
-        this.sectorStart = sectorStart;
+        this.startCluster = startCluster;
         this.isFolder = isFolder;
 
-//        TODO: Check if this is a folder and go to the sector to get the childrens
-        if (isFolder) {
-            this.childrens = new ArrayList<>();
-            this.nextChild = 0;
-        }
+//  TODO: Check if this is a folder and go to the sector to get the children
     }
 
     public ItemDataObject(String name, boolean isFolder) {
         this.name = name;
         this.isFolder = isFolder;
+    }
+
+    public ItemDataObject(ArrayList<String> entry) {
+        ItemEntry itemEntry = new ItemEntry(entry);
+
+        this.name = itemEntry.getName();
+
+        if (itemEntry.isFolder()) {
+            this.size = 0;
+            this.isFolder = true;
+            long startCluster = this.getStartCluster();
+
+//            TODO: Change the file path to global variable when user select
+            String filePath = "\\\\.\\E:";
+            int bytesPerCluster = 4096; // Default value for NTFS file systems
+
+//            Get cluster data from sector
+            byte[] clusterData = null;
+            try (FileClusterReader reader = new FileClusterReader(Paths.get(filePath), bytesPerCluster)) {
+                clusterData = reader.readCluster(startCluster);
+            } catch (IOException e) {
+                System.err.println("Error reading cluster: " + e.getMessage());
+            }
+
+
+        }
     }
 
     public long getSize() {
@@ -56,8 +83,8 @@ public class ItemDataObject {
         return this.status;
     }
 
-    public long getSectorStart() {
-        return this.sectorStart;
+    public long getStartCluster() {
+        return this.startCluster;
     }
 
     public String getName() {

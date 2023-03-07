@@ -15,10 +15,14 @@ public class Utils {
         return sb.toString();
     }
 
+    public static String getHexValueFromIndex(int index, String inputString, int bytes) {
+        return inputString.substring(index, index + (bytes * 3) - 1);
+    }
+
     // give hex value from offset input and number of bytes
     public static String getHexValueFromSector(String offset, String inputString, int bytes) {
         int decimalIndex = Integer.parseInt(offset.substring(2), 16) * 3;
-        return inputString.substring(decimalIndex, decimalIndex + (bytes * 3) - 1);
+        return getHexValueFromIndex(decimalIndex,inputString,bytes);
     }
 
 
@@ -60,7 +64,7 @@ public class Utils {
 
         hexString = sb.toString();
 
-        decimal_res=Integer.parseInt(hexString,16);
+        decimal_res = Integer.parseInt(hexString, 16);
 
         return decimal_res;
     }

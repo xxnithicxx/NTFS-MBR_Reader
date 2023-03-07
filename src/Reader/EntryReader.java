@@ -1,16 +1,26 @@
+package Reader;
+
 import Helper.Utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 
 public class EntryReader implements AutoCloseable {
     private final String filePath;
 
+    private int nSectorPerCl;
+    private int numberOfFat;
+    private long startClOfRDET;
+    private int nSectorPerBs;
+    private int sizeFAT;
+
     public EntryReader(String filePath) {
         this.filePath = filePath;
+        this.getRDETInfo();
     }
 
     public String[] read(String entryHexString) {
@@ -44,19 +54,16 @@ public class EntryReader implements AutoCloseable {
         return resArray;
     }
 
-    public static int startSectorOfRDET(int nSectorPerCl, int nSectorPerBs, int sizeFAT, int numberOfFat, int startClOfRDET) {
-        return nSectorPerBs + sizeFAT * numberOfFat + nSectorPerCl * (startClOfRDET - 2);
+    public long startSectorFromCluster(int nSectorPerCl, int nSectorPerBs, int sizeFAT, int numberOfFat,
+                                   long ClusterIndex) {
+        return nSectorPerBs + sizeFAT * numberOfFat + nSectorPerCl * (ClusterIndex - 2);
     }
 
-    public String[] readEntry() {
-        int nSectorPerCl = 0;
-        int startClOfRDET = 0;
-        int nSectorPerBs = 0;
-        int sizeFAT = 0;
-        int numberOfFat = 0;
+    public long startSectorFromCluster(long ClusterIndex){
+        return startSectorFromCluster(this.nSectorPerCl,this.nSectorPerBs,this.sizeFAT,numberOfFat,ClusterIndex);
+    }
 
-
-        // Get RDET info
+    public void getRDETInfo(){
         int sectorSize = 512;
         int sectorIndex = 0;
         try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sectorSize)) {
@@ -71,9 +78,13 @@ public class EntryReader implements AutoCloseable {
         } catch (Exception e) {
             System.err.println("Error reading Boot : " + e.getMessage());
         }
-        int startRDET = startSectorOfRDET(nSectorPerCl, nSectorPerBs, sizeFAT, numberOfFat, startClOfRDET);
+    }
+
+    public String[] readEntryFromRDET() {
+        long startRDET = startSectorFromCluster(nSectorPerCl, nSectorPerBs, sizeFAT, numberOfFat, startClOfRDET);
 
         int sizeRDET = 512;
+        // Read RDET
         String entryHexString = null;
         try (SectorReader reader = new SectorReader(new FileInputStream(filePath), sizeRDET)) {
             byte[] sectorData = reader.readSector(startRDET);
@@ -82,8 +93,7 @@ public class EntryReader implements AutoCloseable {
             System.err.println("Error reading RDET: " + e.getMessage());
         }
 
-
-        // Entry reader
+        // Read entry
         assert entryHexString != null;
         String[] entryArray = new String[entryHexString.length() / 32];
         try (EntryReader reader = new EntryReader(entryHexString)) {
@@ -95,13 +105,14 @@ public class EntryReader implements AutoCloseable {
         return entryArray;
     }
 
-    public boolean typeEntry(String typeByte) {
+    public static boolean typeEntry(String typeByte) {
         return !Objects.equals(typeByte, "0F");
     }
 
-    public ArrayList<ArrayList<String>> splitIntoItem(String[] Entrys) {
+    public static ArrayList<ArrayList<String>> splitIntoItem(String[] Entrys) {
         ArrayList<ArrayList<String>> res = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
+
         for (String i : Entrys) {
             String typeByte = Utils.getHexValueFromSector("0x0B", i, 1);
             boolean type = typeEntry(typeByte);
@@ -110,15 +121,44 @@ public class EntryReader implements AutoCloseable {
             if (type) {
                 res.add(temp);
                 temp = new ArrayList<>();
-
             }
         }
         
         return res;
     }
 
+    public int getnSectorPerCl() {
+        return nSectorPerCl;
+    }
+
+    public int getNumberOfFat() {
+        return numberOfFat;
+    }
+
+    public long getStartClOfRDET() {
+        return startClOfRDET;
+    }
+
+    public int getnSectorPerBs() {
+        return nSectorPerBs;
+    }
+
+    public int getSizeFAT() {
+        return sizeFAT;
+    }
+
     @Override
     public void close() {
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        String filePath="\\\\.\\D:";
+
+        try(EntryReader entryReader=new EntryReader(filePath))
+        {
+            System.out.println(Arrays.toString(entryReader.readEntryFromRDET()));
+        }
 
     }
 }
