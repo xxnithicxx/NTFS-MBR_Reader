@@ -107,7 +107,7 @@ public class ItemEntry {
         return hexStringToDecimal(temp);
     }
 
-    public long getSectorNumber() {
+    public long getClusterNumber() {
         if (this.entryList.size() == 1) {
             String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(0), 4);
             return hexStringToDecimal(temp);

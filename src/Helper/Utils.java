@@ -10,7 +10,8 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
         for (int i = hexArray.length - 1; i >= 0; i--) {
             sb.append(hexArray[i]);
-            sb.append(" ");
+            if (i != 0)
+                sb.append(" ");
         }
         return sb.toString();
     }

@@ -19,7 +19,8 @@ public class FATReader {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        ArrayList<Integer> res = new ArrayList<>(512 / 4);
+
+        ArrayList<Integer> res = new ArrayList<>();
         String temp;
         startIndex -= sectorIndex * nElementPerSector;
         startIndex *= 4 * 3;

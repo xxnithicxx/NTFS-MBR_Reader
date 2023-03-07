@@ -100,7 +100,7 @@ public class EntryReader implements AutoCloseable {
         // Read entry
         assert entryHexString != null;
         String[] entryArray = new String[entryHexString.length() / 32];
-        try (EntryReader reader = new EntryReader(entryHexString)) {
+        try (EntryReader reader = new EntryReader(Global.mainPath)) {
             entryArray = reader.read(entryHexString);
         } catch (Exception e) {
             System.err.println("Error reading sector: " + e.getMessage());
