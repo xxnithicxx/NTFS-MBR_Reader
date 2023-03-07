@@ -28,9 +28,10 @@ public class FATReader {
             temp = Utils.getHexValueFromIndex(startIndex, FATDataString, 4);
             temp = Utils.hexToLittleEndian(temp);
             System.out.println(temp);
+            if(temp.equals("0F FF FF FF")) break;
             res.add(Utils.hexStringToDecimal(temp));
             startIndex += 4 * 3;
-        } while (!temp.equals("0F FF FF FF"));
+        } while (true);
 
         return res;
     }

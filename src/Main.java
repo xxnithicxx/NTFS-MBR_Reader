@@ -16,7 +16,8 @@ public class Main {
 
 
             FATReader fatReader = new FATReader();
-            fatReader.readFAT(7);
+            var array=fatReader.readFAT(7);
+            System.out.println(array);
         }
     }
 }
