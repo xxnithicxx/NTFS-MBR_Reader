@@ -6,11 +6,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
-public class NTFSFileClusterReader implements AutoCloseable{
+public class FileClusterReader implements AutoCloseable{
     private final FileChannel fileChannel;
     private final int bytesPerCluster;
 
-    public NTFSFileClusterReader(Path filePath, int bytesPerCluster) throws IOException {
+    public FileClusterReader(Path filePath, int bytesPerCluster) throws IOException {
         this.fileChannel = FileChannel.open(filePath, StandardOpenOption.READ);
         this.bytesPerCluster = bytesPerCluster;
     }
@@ -31,7 +31,7 @@ public class NTFSFileClusterReader implements AutoCloseable{
         String filePath = "\\\\.\\F:";
         int bytesPerCluster = 4096; // Default value for NTFS file systems
 
-        try (NTFSFileClusterReader reader = new NTFSFileClusterReader(Paths.get(filePath), bytesPerCluster)) {
+        try (FileClusterReader reader = new FileClusterReader(Paths.get(filePath), bytesPerCluster)) {
             long clusterNumber = 0;
             byte[] clusterData = reader.readCluster(clusterNumber);
             System.out.println("Cluster data: " + Arrays.toString(clusterData));

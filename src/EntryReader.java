@@ -1,3 +1,5 @@
+import Helper.Utils;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class EntryReader implements AutoCloseable {
                     stringBuilder.append(" ");
                 }
             }
+
             //Check ending up reading entries.
             if (stringBuilder.toString().startsWith("00")) {
                 break;
@@ -31,6 +34,7 @@ public class EntryReader implements AutoCloseable {
             stringArray.add(stringBuilder.toString());
 
         }
+
         // Convert to static array
         String[] resArray = new String[stringArray.size()];
         for (int i = 0; i < stringArray.size(); i++) {
@@ -116,17 +120,5 @@ public class EntryReader implements AutoCloseable {
     @Override
     public void close() {
 
-    }
-}
-
-class EntryTestReader {
-    public static void main(String[] args) throws IOException {
-        String filePath = "\\\\.\\D:";
-        try (EntryReader entryReader = new EntryReader(filePath)) {
-            String[] Entrys=entryReader.readEntry();
-
-            ArrayList<ArrayList<String>> items= entryReader.splitIntoItem(Entrys);
-            System.out.println((items));
-        }
     }
 }

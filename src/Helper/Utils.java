@@ -48,7 +48,7 @@ public class Utils {
         return position;
     }
 
-//    Hàm sai
+
     public static int hexStringToDecimal(String hexString) {
         int decimal_res;
         String[] hexStrings = hexString.split(" ");

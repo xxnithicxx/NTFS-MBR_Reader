@@ -98,6 +98,7 @@ public class ItemEntry {
 
     public long getSize() {
         String temp = Utils.getHexValueFromSector("0x1C", this.entryList.get(0), 4);
+        temp = Utils.hexToLittleEndian(temp);
         return hexStringToDecimal(temp);
     }
 
@@ -112,6 +113,8 @@ public class ItemEntry {
             String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(i), 4);
             sectorNumber += hexStringToDecimal(temp);
         }
+
+//        Convert cluster to Sector
 
         return sectorNumber;
     }
