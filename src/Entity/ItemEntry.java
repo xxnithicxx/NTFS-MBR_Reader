@@ -111,7 +111,7 @@ public class ItemEntry {
             return 0;
 
         String temp = Utils.getHexValueFromSector("0x1C", this.entryList.get(0), 4);
-        temp = Utils.hexToLittleEndian(temp);
+        temp = Utils.littleToBigEndian(temp);
         return hexStringToDecimal(temp);
     }
 

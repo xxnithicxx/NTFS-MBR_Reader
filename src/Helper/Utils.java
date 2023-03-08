@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Utils {
     // transfer hex byte in sector to string little endian
     //"43 56 23" -> "23 56 43"
-    public static String hexToLittleEndian(String hex) {
+    public static String littleToBigEndian(String hex) {
         String[] hexArray = hex.split(" ");
         StringBuilder sb = new StringBuilder();
         for (int i = hexArray.length - 1; i >= 0; i--) {
