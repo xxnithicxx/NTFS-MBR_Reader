@@ -2,6 +2,7 @@ import Entity.Global;
 import Entity.ItemEntry;
 import Reader.EntryReader;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Main {
@@ -13,6 +14,7 @@ public class Main {
                 item.parse(i);
                 System.out.println(item.getName());
                 System.out.println(item.getSize());
+                System.out.println(item.getTxtData());
             }
         }
     }

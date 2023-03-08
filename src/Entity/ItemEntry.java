@@ -124,15 +124,27 @@ public class ItemEntry {
             return hexStringToDecimal(temp);
         }
 
-        long sectorNumber = 0;
+        long clusterNumber = 0;
         for (int i = 1; i < this.entryList.size(); i++) {
             String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(i), 4);
-            sectorNumber += hexStringToDecimal(temp);
+            clusterNumber += hexStringToDecimal(temp);
         }
 
-//        Convert cluster to Sector
+        return clusterNumber;
+    }
 
-        return sectorNumber;
+    public String getTxtData(){
+        if (isDeleted())
+            return "isDeleted";
+
+        if (isFolder())
+            return "isFolder";
+
+        if (this.getName().contains(".txt") || this.getName().contains(Global.txtUTF16)){
+            return "isTxt";
+        }
+
+        return "isNotTxt";
     }
 
     public boolean isDeleted() {

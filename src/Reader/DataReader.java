@@ -11,7 +11,6 @@ import static Reader.EntryReader.startSectorFromCluster;
 
 public class DataReader implements AutoCloseable {
     public String[] read(int clusterIndex) throws IOException {
-
         int sizeCluster = Global.sectorPerCluster * 512;
         // Create Sector Reader
         SectorReader sectorReader = new SectorReader(new FileInputStream(Global.mainPath), sizeCluster);
