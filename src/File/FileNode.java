@@ -12,6 +12,9 @@ import java.awt.*;
 import java.io.*;
 import java.util.Vector;
 
+import static GUI.FileTree1.ICON_EXPANDEDFOLDER;
+import static GUI.FileTree1.ICON_FOLDER;
+
 public class FileNode {
     public File m_file;
 
@@ -70,8 +73,8 @@ public class FileNode {
             IconData idata=null;
             if (nd.hasSubDirs())
             {
-                idata = new IconData(GUI.FileTree1.ICON_FOLDER,
-                        GUI.FileTree1.ICON_EXPANDEDFOLDER, nd);
+                idata = new IconData(resizeIcon(ICON_FOLDER),
+                        resizeIcon(ICON_EXPANDEDFOLDER), nd);
             }
             else{
                 idata = new IconData(iconFile(nd.m_file),
