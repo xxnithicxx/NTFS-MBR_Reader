@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner;
 public class FileInfo {
     public String FileName;
-    ;
     public String pathFile;
     public static final ImageIcon ICON_EXCEL =
             new ImageIcon("./Img/excel.png");

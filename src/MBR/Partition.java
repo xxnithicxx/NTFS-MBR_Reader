@@ -1,9 +1,9 @@
 package MBR;
 
 public class Partition {
-    private int partitionType;
-    private long partitionStart;
-    private long partitionSize;
+    private final int partitionType;
+    private final long partitionStart;
+    private final long partitionSize;
 
     public Partition(int partitionType, long partitionStart, long partitionSize) {
         this.partitionType = partitionType;

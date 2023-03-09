@@ -20,19 +20,19 @@ import java.awt.GridLayout;
 
 public class TreeDirectory extends JPanel implements TreeSelectionListener {
     private JEditorPane htmlPane;
-    private JTree tree;
+    private final JTree tree;
     private URL helpURL;
-    private static boolean DEBUG = false;
-    private static boolean playWithLineStyle = false;
-    private static String lineStyle = "Horizontal";
-    private static boolean useSystemLookAndFeel = false;
+    private static final boolean DEBUG = false;
+    private static final boolean playWithLineStyle = false;
+    private static final String lineStyle = "Horizontal";
+    private static final boolean useSystemLookAndFeel = false;
     public TreeDirectory(String path) {
         super(new GridLayout(1,0));
 
         //Create the nodes.
         int pos = path.lastIndexOf("/");
         System.out.println(pos);
-        String name = path.substring(pos+1,path.length());
+        String name = path.substring(pos+1);
         DefaultMutableTreeNode top =
                 new DefaultMutableTreeNode(name);
         FileOperation f = new FileOperation();

@@ -1,8 +1,10 @@
 package Entity;
 
 import Helper.Utils;
+import Reader.DataReader;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -104,8 +106,6 @@ public class ItemEntry {
         return outputStream.toString(StandardCharsets.UTF_16LE);
     }
 
-//     TODO: Implement get attributes
-
     public long getSize() {
         if (isDeleted())
             return 0;
@@ -115,33 +115,33 @@ public class ItemEntry {
         return hexStringToDecimal(temp);
     }
 
-    public long getClusterNumber() {
+    public long getStartCluster() {
         if (isDeleted())
             return -1;
 
-        if (this.entryList.size() == 1) {
-            String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(0), 4);
-            return hexStringToDecimal(temp);
-        }
+        String high = Utils.getHexValueFromSector("0x14", this.entryList.get(0), 2);
+        String low = Utils.getHexValueFromSector("0x1A", this.entryList.get(0), 2);
 
-        long clusterNumber = 0;
-        for (int i = 1; i < this.entryList.size(); i++) {
-            String temp = Utils.getHexValueFromSector("0x0F", this.entryList.get(i), 4);
-            clusterNumber += hexStringToDecimal(temp);
-        }
-
-        return clusterNumber;
+        return hexStringToDecimal(Utils.littleToBigEndian(low + high));
     }
 
-    public String getTxtData(){
+    public String getTxtData() {
         if (isDeleted())
             return "isDeleted";
 
         if (isFolder())
             return "isFolder";
 
-        if (this.getName().contains(".txt") || this.getName().contains(Global.txtUTF16)){
-            return "isTxt";
+        if (this.getName().contains(".TXT") || this.getName().contains(Global.txtUTF16)) {
+            byte[] bytes;
+
+            try (DataReader dataReader = new DataReader()) {
+                bytes = dataReader.read((int) this.getStartCluster());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            return new String(bytes).trim();
         }
 
         return "isNotTxt";
@@ -151,15 +151,37 @@ public class ItemEntry {
         if (this.entryList.get(0).equals("00")) {
             return true;
         } else {
-            return this.entryList.get(0).equals("E5");
+            return this.entryList.get(0).startsWith("E5");
         }
     }
 
     public boolean isFolder() {
-        return this.entryList.get(0).equals("2E");
+        if (this.isDeleted())
+            return false;
+
+        int attribute = hexStringToDecimal(Utils.getHexValueFromSector("0x0B", this.entryList.get(0), 1));
+        return (attribute & 0x10) == 0x10;
     }
 
-    public boolean isMainEntry(String entryData) {
+    private boolean isMainEntry(String entryData) {
         return entryData.startsWith("0F", 33);
+    }
+
+    public String getStatus() {
+        String temp = Utils.getHexValueFromSector("0x0B", this.entryList.get(0), 1);
+        int[] attributes = checkOnBitFromHexToBinary(temp);
+
+        StringBuilder sb = new StringBuilder();
+        for (var atr : attributes){
+            if (atr == 0)
+                sb.append("Read Only");
+
+            if (atr == 1)
+                sb.append("|Hidden");
+            else
+                sb.append("|Normal");
+        }
+
+        return sb.toString();
     }
 }

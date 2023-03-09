@@ -8,13 +8,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class FileOperation {
     public void dirTree(String path, DefaultMutableTreeNode top){
         File sf = new File (path);
-        if (!sf.exists())
-            return;
+        if (!sf.exists()) {
+        }
         else{
             DefaultMutableTreeNode file = new DefaultMutableTreeNode();
             if (sf.isDirectory())
             {
-                File fileList[] = sf.listFiles();
+                File[] fileList = sf.listFiles();
                 for (File f:fileList)
                 {
                     if(f.isDirectory())

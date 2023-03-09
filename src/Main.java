@@ -1,21 +1,20 @@
+import Entity.FATDirectoryTree;
 import Entity.Global;
 import Entity.ItemEntry;
 import Reader.EntryReader;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        FATDirectoryTree tree = new FATDirectoryTree();
+
         try (EntryReader entryReader = new EntryReader(Global.mainPath)) {
-            ArrayList<ArrayList<String>> entrys = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());
-            for (var i : entrys) {
-                ItemEntry item = new ItemEntry();
-                item.parse(i);
-                System.out.println(item.getName());
-                System.out.println(item.getSize());
-                System.out.println(item.getTxtData());
-            }
+            ArrayList<ArrayList<String>> entry = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());
+            tree.initRoot(entry);
         }
+
+        System.out.println(tree.getPath("Truong Binh.txt"));
     }
 }
+

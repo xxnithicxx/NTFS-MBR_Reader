@@ -112,11 +112,38 @@ public class EntryReader implements AutoCloseable {
             System.err.println("Error reading RDET: " + entryHexString.length());
         }
 
-        String[] entryArray = new String[entryHexString.length() / 32];
+        String[] entryArray;
         try (EntryReader reader = new EntryReader(Global.mainPath)) {
             entryArray = reader.readEntry(entryHexString.toString());
-        } catch (Exception e) {
-            System.err.println("Error reading sector: " + e.getMessage());
+        }
+
+        return entryArray;
+    }
+
+    public String[] readEntryFromCluster(long startCluster){
+        long startRDET = startSectorFromCluster(nSectorPerCl, nSectorPerBs, sizeFAT, numberOfFat, startCluster);
+
+        StringBuilder entryHexString = new StringBuilder();
+        try (SectorReader reader = new SectorReader(new FileInputStream(filePath), 512)) {
+            String temp;
+            do {
+                byte[] sectorData = reader.readSector(startRDET++);
+                temp = Utils.bytesToHexString(sectorData);
+                entryHexString.append(temp);
+            } while (temp.startsWith("00"));
+
+        } catch (IOException e) {
+            System.err.println("Error reading RDET: " + e.getMessage());
+        }
+
+        // Read entry
+        if (entryHexString.length() % 32 != 0) {
+            System.err.println("Error reading RDET: " + entryHexString.length());
+        }
+
+        String[] entryArray;
+        try (EntryReader reader = new EntryReader(Global.mainPath)) {
+            entryArray = reader.readEntry(entryHexString.toString());
         }
 
         return entryArray;

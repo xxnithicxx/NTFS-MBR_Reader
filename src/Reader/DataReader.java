@@ -1,54 +1,52 @@
 package Reader;
 
 import Entity.Global;
-import Helper.Utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static Reader.EntryReader.startSectorFromCluster;
 
 public class DataReader implements AutoCloseable {
-    public String[] read(int clusterIndex) throws IOException {
-        int sizeCluster = Global.sectorPerCluster * 512;
-        // Create Sector Reader
-        SectorReader sectorReader = new SectorReader(new FileInputStream(Global.mainPath), sizeCluster);
-
+    public byte[] read(int clusterIndex) {
         FATReader fat = new FATReader();
         ArrayList<Integer> clusterChain = fat.readFAT(clusterIndex);
 
-        ArrayList<String> stringArray = new ArrayList<>();
+        ArrayList<Byte> data = new ArrayList<>();
 
-        for (int i = 0; i < clusterChain.size(); i++) {
-            if (i == clusterChain.size() - 1) {
-                // Check EOF
-                //----------------------------------------------------------------------------Here
-                System.out.println("Checking EOF...");
-            } else {
-                int clusterId = clusterChain.get(i);
+        for (int clusterId : clusterChain) {
+            for (int i = 0; i < Global.sectorPerCluster; i++) {
+                SectorReader sectorReader = null;
+                try {
+                    sectorReader = new SectorReader(new FileInputStream(Global.mainPath), 512);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
                 // Convert into SectorId
                 long SectorId = startSectorFromCluster(Global.sectorPerCluster, Global.nSectorPerBs, Global.sizeFAT,
                         Global.numberOfFat, clusterId);
+                SectorId += i;
 
-                // For testing
-                System.out.println("SectorId = " + SectorId);
+                byte[] sectorData;
+                try {
+                    sectorData = sectorReader.readSector(SectorId);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-                byte[] sectorData = sectorReader.readSector(SectorId);
-                String entryHexString = Utils.bytesToHexString(sectorData);
-
-                stringArray.add(entryHexString);
-
-                // For testing
-//                System.out.println(entryHexString);
-//                break;
+                for (byte sectorDatum : sectorData) {
+                    data.add(sectorDatum);
+                }
             }
         }
+
         // Convert to static array
-        String[] resArray = new String[stringArray.size()];
-        for (int i = 0; i < stringArray.size(); i++) {
-            resArray[i] = stringArray.get(i);
+        byte[] resArray = new byte[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            resArray[i] = data.get(i);
         }
 
         return resArray;

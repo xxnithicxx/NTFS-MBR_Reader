@@ -22,13 +22,15 @@ public class FATReader {
 
         ArrayList<Integer> res = new ArrayList<>();
         String temp;
+
+        res.add(startIndex);
         startIndex -= sectorIndex * nElementPerSector;
         startIndex *= 4 * 3;
         do {
             temp = Utils.getHexValueFromIndex(startIndex, FATDataString, 4);
             temp = Utils.littleToBigEndian(temp);
-            System.out.println(temp);
-            if (temp.equals("0F FF FF FF")) break;
+            if (temp.equals("0F FF FF FF"))
+                break;
             res.add(Utils.hexStringToDecimal(temp));
             startIndex += 4 * 3;
         } while (true);
