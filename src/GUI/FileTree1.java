@@ -20,11 +20,11 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
     public static final ImageIcon ICON_DISK =
             new ImageIcon("disk.gif");
     public static final ImageIcon ICON_FOLDER =
-            new ImageIcon("./Img/folder.png");
+            new ImageIcon("./src/Img/folder.png");
     public static final ImageIcon ICON_EXPANDEDFOLDER =
-            new ImageIcon("./Img/openfolder.png");
+            new ImageIcon("./src/Img/openfolder.png");
     public static final ImageIcon ICON_IMG =
-            new ImageIcon("./Img/image.png");
+            new ImageIcon("./src/Img/image.png");
     public static final ImageIcon ICON_EXCEL =
             new ImageIcon("./src/Img/excel.png");
     public static final ImageIcon ICON_WORD =
