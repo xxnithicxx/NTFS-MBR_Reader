@@ -5,23 +5,19 @@
 
 package Entity;
 
-import Reader.FileClusterReader;
+import Reader.DataReader;
+import Reader.EntryReader;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class ItemDataObject {
-    private String name;
+    private final String name;
     private long size;
     private String status;
     private long startCluster;
     private boolean isFolder;
     private List<ItemDataObject> childrens = null;
-    private int nextChild;
 
     public ItemDataObject(String name, long size, String status, long startCluster, boolean isFolder) {
         this.name = name;
@@ -30,37 +26,33 @@ public class ItemDataObject {
         this.startCluster = startCluster;
         this.isFolder = isFolder;
 
-//  TODO: Check if this is a folder and go to the sector to get the children
-    }
+        if (isFolder) {
+            this.childrens = new ArrayList<>();
 
-    public ItemDataObject(String name, boolean isFolder) {
-        this.name = name;
-        this.isFolder = isFolder;
-    }
+            DataReader dataReader = new DataReader();
+            EntryReader entryReader = new EntryReader(Global.mainPath);
+            ArrayList<ArrayList<String>> entries;
 
-    public ItemDataObject(ArrayList<String> entry) {
-        ItemEntry itemEntry = new ItemEntry(entry);
+            entries = EntryReader.splitIntoItem(entryReader.readEntryFromCluster(startCluster));
 
-        this.name = itemEntry.getName();
-
-        if (itemEntry.isFolder()) {
-            this.size = 0;
-            this.isFolder = true;
-            long startCluster = this.getStartCluster();
-
-//            TODO: Change the file path to global variable when user select
-            String filePath = "\\\\.\\E:";
-            int bytesPerCluster = 4096; // Default value for NTFS file systems
-
-//            Get cluster data from sector
-            byte[] clusterData = null;
-            try (FileClusterReader reader = new FileClusterReader(Paths.get(filePath), bytesPerCluster)) {
-                clusterData = reader.readCluster(startCluster);
-            } catch (IOException e) {
-                System.err.println("Error reading cluster: " + e.getMessage());
+            for (int i = 2; i < entries.size(); i++) {
+                ItemEntry itemEntry = new ItemEntry(entries.get(i));
+                ItemDataObject item = new ItemDataObject(itemEntry.getName(), itemEntry.getSize(), itemEntry.getStatus(), itemEntry.getStartCluster(), itemEntry.isFolder());
+                this.childrens.add(item);
             }
+        }
+    }
 
+    //    Only use this for add base drive
+    public ItemDataObject(String name, ArrayList<ArrayList<String>> entry) {
+        this.name = name;
+        this.isFolder = true;
+        this.childrens = new ArrayList<>();
 
+        for (int i = 2; i < entry.size(); i++) {
+            ItemEntry itemEntry = new ItemEntry(entry.get(i));
+            ItemDataObject item = new ItemDataObject(itemEntry.getName(), itemEntry.getSize(), itemEntry.getStatus(), itemEntry.getStartCluster(), itemEntry.isFolder());
+            this.childrens.add(item);
         }
     }
 
@@ -70,13 +62,28 @@ public class ItemDataObject {
         } else {
             long tempSize = 0L;
 
-            ItemDataObject item;
-            for(Iterator var3 = this.childrens.iterator(); var3.hasNext(); tempSize += item.getSize()) {
-                item = (ItemDataObject)var3.next();
-            }
+            for (var i : this.childrens)
+                tempSize += i.getSize();
 
             return tempSize;
         }
+    }
+
+    public String search(String name) {
+        if (this.name.toUpperCase().equals(name)) {
+            return this.name;
+        }
+
+        if (this.isFolder) {
+            for (ItemDataObject item : this.childrens) {
+                String temp = item.search(name);
+                if (!temp.equals("")) {
+                    return this.name + "\\" + temp;
+                }
+            }
+        }
+
+        return "";
     }
 
     public String getStatus() {
@@ -93,64 +100,6 @@ public class ItemDataObject {
 
     public List<ItemDataObject> getChildrens() {
         return this.childrens;
-    }
-
-    public boolean addChildren(ItemDataObject children) {
-        if (children == null) {
-            return false;
-        } else {
-            if (this.childrens == null) {
-                this.childrens = new ArrayList();
-                this.nextChild = 0;
-            }
-
-            this.childrens.add(children);
-            return true;
-        }
-    }
-
-    public boolean addChildren(ItemDataObject children, String parent) {
-        if (children == null) {
-            return false;
-        } else {
-            if (this.childrens == null) {
-                this.childrens = new ArrayList();
-                this.nextChild = 0;
-            }
-
-            if (this.name.equals(parent) && this.isFolder) {
-                this.childrens.add(children);
-                return true;
-            } else {
-                boolean isAdded = false;
-                Iterator var4 = this.childrens.iterator();
-
-                do {
-                    if (!var4.hasNext()) {
-                        return false;
-                    }
-
-                    ItemDataObject item = (ItemDataObject)var4.next();
-                    if (item.isFolder) {
-                        isAdded = item.addChildren(children, parent);
-                    }
-                } while(!isAdded);
-
-                return true;
-            }
-        }
-    }
-
-    public ItemDataObject getNextChildren() {
-        if (this.childrens == null) {
-            return null;
-        } else {
-            if (this.nextChild > this.childrens.size()) {
-                this.nextChild = 0;
-            }
-
-            return (ItemDataObject)this.childrens.get(this.nextChild++);
-        }
     }
 
     public boolean isFolder() {

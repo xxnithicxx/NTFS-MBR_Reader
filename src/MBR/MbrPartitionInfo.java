@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MbrPartitionInfo {
-    private Partition[] partitions = new Partition[4];
+    private final Partition[] partitions = new Partition[4];
 
     public MbrPartitionInfo() {
         try {

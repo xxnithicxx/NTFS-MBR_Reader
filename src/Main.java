@@ -1,5 +1,6 @@
 import Entity.FATDirectoryTree;
 import Entity.Global;
+import Entity.ItemEntry;
 import Reader.EntryReader;
 
 import java.util.ArrayList;

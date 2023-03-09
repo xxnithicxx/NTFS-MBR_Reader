@@ -1,28 +1,40 @@
 package Reader;
 
+import Entity.Global;
 import Helper.Utils;
 
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 
 public class FATReader {
-    public int startSector;
+    public int startFAT = Global.startFAT;
 
-    public FATReader(int startSector) {
-        this.startSector = startSector;
-    }
     String FATDataString;
-    public String[] readFAT(int startIndex) throws IOException {
-        try (SectorReader sectorReader = new SectorReader(new FileInputStream("\\\\.\\E:"), 512)) {
-             FATDataString= Utils.bytesToHexString(sectorReader.readSector(startSector));
 
-
+    public ArrayList<Integer> readFAT(int startIndex) {
+        int nElementPerSector = 512 / 4;
+        int sectorIndex = startIndex / nElementPerSector;
+        try (SectorReader sectorReader = new SectorReader(new FileInputStream(Global.mainPath), 512)) {
+            FATDataString = Utils.bytesToHexString(sectorReader.readSector(startFAT + sectorIndex));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        int[] res=new int[512/4];
-        String temp=(Utils.getHexValueFromIndex(startIndex,FATDataString,4));
 
-        return null;
+        ArrayList<Integer> res = new ArrayList<>();
+        String temp;
+
+        res.add(startIndex);
+        startIndex -= sectorIndex * nElementPerSector;
+        startIndex *= 4 * 3;
+        do {
+            temp = Utils.getHexValueFromIndex(startIndex, FATDataString, 4);
+            temp = Utils.littleToBigEndian(temp);
+            if (temp.equals("0F FF FF FF"))
+                break;
+            res.add(Utils.hexStringToDecimal(temp));
+            startIndex += 4 * 3;
+        } while (true);
+
+        return res;
     }
 }
