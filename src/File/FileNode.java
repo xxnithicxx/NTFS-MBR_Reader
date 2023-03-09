@@ -1,5 +1,7 @@
 package File;
 
+import GUI.FileTree1;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -124,9 +126,12 @@ public class FileNode {
             temp = GUI.FileTree1.ICON_TXT;
         }
         else return null;
+
+        return resizeIcon(temp);
+    }
+    public static ImageIcon resizeIcon(ImageIcon temp){
         Image img = temp.getImage();
-        img = img.getScaledInstance(12,12,Image.SCALE_SMOOTH);
-        System.out.println(img.getSource());
+        img = img.getScaledInstance(13,13,Image.SCALE_SMOOTH);
         return new ImageIcon(img);
     }
 
@@ -179,9 +184,7 @@ public class FileNode {
         byte[] buffer = new byte[512];
         inputStream.read(buffer, 0, buffer.length);
         while ((str = file.readLine()) != null) {
-//            pane.add(str);
             System.out.println(str);
-//            attributeSet = new SimpleAttributeSet();
             doc.insertString(doc.getLength(), str, null);
         }
         file.close();

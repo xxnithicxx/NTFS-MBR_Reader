@@ -33,23 +33,6 @@ public class IconCellRenderer
         setOpaque(false);
     }
     @Override
-//    public Component getTreeCellRendererComponent(JTree tree, Object value,
-//                                                  boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-//
-//        Component c = super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
-//
-//        if (value instanceof DefaultMutableTreeNode) {
-//            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-//            Object userObject = node.getUserObject();
-//            if (userObject instanceof ImageIcon) {
-//                ImageIcon icon = (ImageIcon) userObject;
-//                Image img = icon.getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);
-//                ImageIcon scaledIcon = new ImageIcon(img);
-//                setIcon(scaledIcon);
-//            }
-//        }
-//        return c;
-//    }
     public Component getTreeCellRendererComponent(JTree tree,
                                                   Object value, boolean sel, boolean expanded, boolean leaf,
                                                   int row, boolean hasFocus) {
@@ -63,9 +46,6 @@ public class IconCellRenderer
 
         if (obj instanceof IconData) {
             IconData idata = (IconData) obj;
-//            tree.setCellRenderer((TreeCellRenderer)idata.m_icon);
-//            idata.size=10;
-//            tree.setCellRenderer((TreeCellRenderer) idata);
             if (expanded)
                 setIcon(idata.getExpandedIcon());
             else

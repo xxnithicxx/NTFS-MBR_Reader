@@ -16,9 +16,9 @@ import static javax.swing.text.StyleConstants.Size;
 public class FileTree1 extends JFrame implements TreeSelectionListener
 {
     public static final ImageIcon ICON_COMPUTER =
-            new ImageIcon("computer.gif");
+            new ImageIcon("./src/Img/computer.png");
     public static final ImageIcon ICON_DISK =
-            new ImageIcon("disk.gif");
+            new ImageIcon("./src/Img/disk.png");
     public static final ImageIcon ICON_FOLDER =
             new ImageIcon("./src/Img/folder.png");
     public static final ImageIcon ICON_EXPANDEDFOLDER =
@@ -48,13 +48,13 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
         setSize(400, 300);
 
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-                new IconData(ICON_COMPUTER, null, "Computer"));
+                new IconData(FileNode.resizeIcon(ICON_COMPUTER), null, "Computer"));
 
         DefaultMutableTreeNode node;
         File[] roots = File.listRoots();
         for (int k=0; k<roots.length; k++)
         {
-            node = new DefaultMutableTreeNode(new IconData(ICON_DISK,
+            node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
                     null, new FileNode(roots[k])));
             top.add(node);
             node.add( new DefaultMutableTreeNode(Boolean.valueOf(true)));
@@ -219,17 +219,7 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
         else return false;
     }
 
-    Image resizeIcon(String path, Label label){
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(),
-                Image.SCALE_SMOOTH);
-        return dimg;
-    }
+
 
     public static void main(String argv[])
     {

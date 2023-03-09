@@ -6,7 +6,6 @@ public class IconData {
     protected Icon m_expandedIcon;
     protected Object m_data;
 
-    protected int size;
     public IconData(Icon icon, Object data) {
         m_icon = icon;
         m_expandedIcon = null;
