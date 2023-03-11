@@ -79,6 +79,7 @@ public class EntryReader implements AutoCloseable {
             nSectorPerBs = reader.nSectorOfBoostSector(hexString);
             sizeFAT = reader.sizeOfFAT(hexString);
             numberOfFat = reader.numberOfFAT(hexString);
+            Global.fileSystem=reader.readFileSystem(hexString);
 
             Global.sizeFAT = sizeFAT;
             Global.startFAT = nSectorPerBs;

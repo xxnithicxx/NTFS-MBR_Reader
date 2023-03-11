@@ -38,6 +38,13 @@ public class SectorReader implements AutoCloseable{
         return Utils.hexStringToDecimal(Utils.littleToBigEndian(hexString));
     }
 
+//    TODO: Implement this method with NTFS file system
+    public String readFileSystem(String sectorData)
+    {
+        String res=Utils.getHexValueFromSector("0x52",sectorData,8);
+        return byteArrayToAsciiString(hexStringToByteArray(res)).trim();
+    }
+
     public int StartClusterOfRDET(String sectorData) {
         String res = Utils.getHexValueFromSector("0x2C", sectorData, 4);
         return Utils.hexStringToDecimal(Utils.littleToBigEndian(res));
