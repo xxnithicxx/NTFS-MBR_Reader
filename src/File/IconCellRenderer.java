@@ -32,6 +32,7 @@ public class IconCellRenderer
                 "Tree.selectionBorderColor");
         setOpaque(false);
     }
+
     @Override
     public Component getTreeCellRendererComponent(JTree tree,
                                                   Object value, boolean sel, boolean expanded, boolean leaf,

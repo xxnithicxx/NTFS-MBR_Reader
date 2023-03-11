@@ -73,12 +73,13 @@ public class FileTree  {
         dirTreeAbs = FileSystemFactory.getFileSystem();
         List<ItemDataObject> items = dirTreeAbs.getRoot().getChildrens();
 
+        ImageIcon icon = resizeIcon(ICON_DISK);
 //        Init the disk node
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-                new IconData(resizeIcon(ICON_DISK), null, new ItemNode(dirTreeAbs.getRoot())));
+                new IconData(icon, null, new ItemNode(dirTreeAbs.getRoot())));
 
         for (ItemDataObject item : items) {
-            ImageIcon icon = getImageIcon(item);
+            icon = getImageIcon(item);
 //            Check why the icon can't be resized
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(
                     new IconData(icon, null, new ItemNode(item)));
@@ -166,8 +167,7 @@ public class FileTree  {
             }
         }
 
-        resizeIcon(icon);
-        return icon;
+        return resizeIcon(icon);
     }
 
     public static boolean isTextFile(String file) {
@@ -243,11 +243,6 @@ public class FileTree  {
             runner.start();
         }
 
-        public void treeCollapsed(TreeExpansionEvent event) {
-        }
-    }
-
-    public static void main(String[] argv) {
-        new FileTree();
+        public void treeCollapsed(TreeExpansionEvent event) {}
     }
 }

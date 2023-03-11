@@ -18,7 +18,7 @@ public class DataReader implements AutoCloseable {
 
         for (int clusterId : clusterChain) {
             for (int i = 0; i < Global.sectorPerCluster; i++) {
-                SectorReader sectorReader = null;
+                SectorReader sectorReader;
                 try {
                     sectorReader = new SectorReader(new FileInputStream(Global.mainPath), 512);
                 } catch (IOException e) {

@@ -27,13 +27,13 @@ public class TreeComputer {
 
         DefaultMutableTreeNode node;
         File[] roots = File.listRoots();
-        for (int k=0; k<roots.length; k++)
-        {
+        for (File file : roots) {
             node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
-                    null, new FileNode(roots[k])));
+                    null, new FileNode(file)));
 
             root.add(node);
         }
+
         Main_model = new DefaultTreeModel(root);
         Main_tree = new JTree(Main_model);
         Main_tree.putClientProperty("JTree.lineStyle", "Angled");
@@ -64,12 +64,14 @@ public class TreeComputer {
 
         frameComputer.setVisible(true);
     }
+
     MouseListener ml_mainTree = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
             int selRow = Main_tree.getRowForLocation(e.getX(), e.getY());
             TreePath selPath = Main_tree.getPathForLocation(e.getX(), e.getY());
             if (selRow != -1) {
                 if (e.getClickCount() == 2) {
+                    assert selPath != null;
                     DefaultMutableTreeNode disk = (DefaultMutableTreeNode) (selPath.getLastPathComponent());
                     System.out.println("Mouse");
 

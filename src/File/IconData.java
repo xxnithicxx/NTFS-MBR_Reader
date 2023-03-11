@@ -1,5 +1,4 @@
 package File;
-import Entity.ItemDataObject;
 
 import javax.swing.*;
 
@@ -12,6 +11,9 @@ public class IconData {
         m_icon = icon;
         m_expandedIcon = expandedIcon;
         m_data = data;
+    }
+    public IconData(Object obtemp) {
+        m_data = obtemp;
     }
 
     public Icon getIcon() {
