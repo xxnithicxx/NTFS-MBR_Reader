@@ -35,16 +35,19 @@ public class FileNode {
     }
 
     public boolean expand(DefaultMutableTreeNode parent) {
-//        if(parent)
-//        DefaultMutableTreeNode flag =
-//                (DefaultMutableTreeNode) parent.getFirstChild();
-//        if (flag == null)    // No flag
-//            return false;
-//        Object obj = flag.getUserObject();
-//        if (!(obj instanceof Boolean))
-//            return false;      // Already expanded
-//
-//        parent.removeAllChildren();  // Remove Flag
+        Object obtemp = parent.getUserObject();
+        IconData tempicon = new IconData(obtemp);
+        if (tempicon.getIcon() != null) {
+            System.out.println("Hi");
+            DefaultMutableTreeNode flag =
+                    (DefaultMutableTreeNode) parent.getFirstChild();
+            if (flag == null)    // No flag
+                return false;
+            Object obj = flag.getUserObject();
+            if (!(obj instanceof Boolean))
+                return false;      // Already expanded
+        }
+        parent.removeAllChildren();  // Remove Flag
 
         File[] files = listFiles();
         if (files == null)

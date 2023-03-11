@@ -81,6 +81,7 @@ public class FileTree extends JFrame implements TreeSelectionListener {
 
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(
                     new IconData(icon, null, new ItemNode(item)));
+            node.add(new DefaultMutableTreeNode(Boolean.TRUE));
             top.add(node);
         }
 

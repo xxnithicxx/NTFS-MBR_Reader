@@ -11,7 +11,7 @@ import File.*;
 
 import static File.FileNode.resizeIcon;
 
-public class TreeDisk extends JFrame
+public class TreeDisk
 {
     public static final ImageIcon ICON_COMPUTER =
             new ImageIcon("./src/Img/computer.png");
@@ -36,10 +36,10 @@ public class TreeDisk extends JFrame
     public static final ImageIcon ICON_TXT=
             new ImageIcon("./src/Img/txt.png");
 
-    protected JTree  m_tree;
+    private JTree  m_tree;
     protected DefaultTreeModel m_model;
     protected JTextField m_display;
-
+    protected JFrame frameDisk;
 
 //    public void rootMain()
 //    {
@@ -88,8 +88,8 @@ public class TreeDisk extends JFrame
 
     public TreeDisk(DefaultMutableTreeNode disk)
     {
-        super(String.valueOf(disk.getPath()));
-        setSize(400, 300);
+        frameDisk= new JFrame(String.valueOf(disk.getPath()));
+        frameDisk.setSize(400, 300);
 
 
 
@@ -99,33 +99,30 @@ public class TreeDisk extends JFrame
 //        File f = new File(nodeDisk.m_file.getAbsolutePath());
 //        File f = new File(disk.getParentPath());
 
-
-        FileNode fnode = getFileNode(disk);
-        if (fnode == null) {
-            return;
-        }
-
-
-
-        File[] listFile = fnode.m_file.listFiles();
-        IconData idata=null;
-
-        for (File sf : listFile)
-        {
-            if (sf.isDirectory())
-            {
-                idata = new IconData(resizeIcon(ICON_FOLDER),
-                        resizeIcon(ICON_EXPANDEDFOLDER), new FileNode(sf));
-            }
-            else{
-                idata = new IconData(FileNode.iconFile(sf),
-                        FileNode.iconFile(sf), new FileNode(sf));
-            }
-            DefaultMutableTreeNode node = new
-                    DefaultMutableTreeNode(idata);
-            disk.add(node);
-        }
-//        nodeDisk.expand(disk);
+//
+//        FileNode fnode = getFileNode(disk);
+//        if (fnode == null) {
+//            return;
+//        }
+//
+//
+//        File[] listFile = fnode.m_file.listFiles();
+//        IconData idata=null;
+//
+//        for (File sf : listFile) {
+//            if (sf.isDirectory()) {
+//                idata = new IconData(resizeIcon(ICON_FOLDER),
+//                        resizeIcon(ICON_EXPANDEDFOLDER), new FileNode(sf));
+//            } else {
+//                idata = new IconData(FileNode.iconFile(sf),
+//                        FileNode.iconFile(sf), new FileNode(sf));
+//            }
+//            DefaultMutableTreeNode node = new
+//                    DefaultMutableTreeNode(idata);
+//            disk.add(node);
+//        }
+        FileNode t = getFileNode(disk);
+        t.expand(disk);
 //        for (int k=0; k<roots.length; k++)
 //        {
 //            node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
@@ -133,8 +130,6 @@ public class TreeDisk extends JFrame
 //            disk.add(node);
 //            node.add( new DefaultMutableTreeNode(Boolean.valueOf(true)));
 //        }
-
-
         m_model = new DefaultTreeModel(disk);
         m_tree = new JTree(m_model);
 
@@ -153,15 +148,15 @@ public class TreeDisk extends JFrame
 
         JScrollPane s = new JScrollPane();
         s.getViewport().add(m_tree);
-        getContentPane().add(s, BorderLayout.CENTER);
+        frameDisk.getContentPane().add(s, BorderLayout.CENTER);
 
         m_display = new JTextField();
         m_display.setEditable(false);
-        getContentPane().add(m_display, BorderLayout.NORTH);
+        frameDisk.getContentPane().add(m_display, BorderLayout.NORTH);
 
-        super.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frameDisk.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        setVisible(true);
+        frameDisk.setVisible(true);
     }
 
 
@@ -199,11 +194,14 @@ public class TreeDisk extends JFrame
             final DefaultMutableTreeNode node = getTreeNode(
                     event.getPath());
             final FileNode fnode = getFileNode(node);
-
+            Object obtemp = node.getUserObject();
+            IconData tempicon = new IconData(obtemp);
+            System.out.println(tempicon.getIcon());
             Thread runner = new Thread()
             {
                 public void run()
                 {
+                    System.out.println(tempicon.getIcon());
                     if (fnode != null && fnode.expand(node))
                     {
                         Runnable runnable = new Runnable()
@@ -263,7 +261,7 @@ public class TreeDisk extends JFrame
                     fnode.displayFile(fnode.m_file.getAbsolutePath());
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "Please open another applitcation to open", "NOTIFICATION", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frameDisk, "Please open another applitcation to open", "NOTIFICATION", JOptionPane.WARNING_MESSAGE);
 
                 }
             } catch (IOException ex) {
@@ -284,9 +282,5 @@ public class TreeDisk extends JFrame
             return true;
         else return false;
     }
-
-
-
-
 }
 

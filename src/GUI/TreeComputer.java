@@ -5,15 +5,11 @@ import java.awt.event.*;
 import java.io.*;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 import javax.swing.tree.*;
-import javax.swing.event.*;
 import  javax.swing.JFrame;
 import File.*;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-
-public class TreeComputer extends JFrame{
+public class TreeComputer {
     public static final ImageIcon ICON_COMPUTER =
             new ImageIcon("./src/Img/computer.png");
     public static final ImageIcon ICON_DISK =
@@ -21,9 +17,11 @@ public class TreeComputer extends JFrame{
     protected JTree Main_tree;
     protected DefaultTreeModel Main_model;
     protected JTextField Main_display;
+    protected JFrame frameComputer;
     TreeComputer(){
-        super("My Computer");
-        setSize(400, 300);
+        frameComputer = new JFrame("My Computer");
+//        super("My Computer");
+        frameComputer.setSize(400, 300);
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(
                 new IconData(FileNode.resizeIcon(ICON_COMPUTER), null, "Computer"));
 
@@ -33,6 +31,7 @@ public class TreeComputer extends JFrame{
         {
             node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
                     null, new FileNode(roots[k])));
+
             root.add(node);
         }
         Main_model = new DefaultTreeModel(root);
@@ -47,12 +46,12 @@ public class TreeComputer extends JFrame{
         Main_tree.setEditable(false);
         JScrollPane s = new JScrollPane();
         s.getViewport().add(Main_tree);
-        getContentPane().add(s, BorderLayout.CENTER);
-
+        frameComputer.getContentPane().add(s, BorderLayout.CENTER);
 
         Main_display = new JTextField();
         Main_display.setEditable(false);
-        getContentPane().add(Main_display, BorderLayout.NORTH);
+
+        frameComputer.add(Main_display, BorderLayout.NORTH);
 
         WindowListener wndCloser = new WindowAdapter()
         {
@@ -61,9 +60,9 @@ public class TreeComputer extends JFrame{
                 System.exit(0);
             }
         };
-        addWindowListener(wndCloser);
+//        addWindowListener(wndCloser);
 
-        setVisible(true);
+        frameComputer.setVisible(true);
     }
     MouseListener ml_mainTree = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
@@ -72,7 +71,10 @@ public class TreeComputer extends JFrame{
             if (selRow != -1) {
                 if (e.getClickCount() == 2) {
                     DefaultMutableTreeNode disk = (DefaultMutableTreeNode) (selPath.getLastPathComponent());
+                    System.out.println("Mouse");
+
                     new TreeDisk(disk);
+//                    frameComputer.setEnabled(false);
                 }
             }
 
