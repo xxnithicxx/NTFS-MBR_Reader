@@ -11,6 +11,10 @@ public class IconData {
         m_expandedIcon = expandedIcon;
         m_data = data;
     }
+    public IconData(Object ob)
+    {
+
+    }
 
     public Icon getIcon() {
         return m_icon;
