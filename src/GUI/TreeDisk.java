@@ -1,4 +1,5 @@
 package GUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -91,21 +92,16 @@ public class TreeDisk extends JFrame
         super(String.valueOf(disk.getPath()));
         setSize(400, 300);
 
-
-
 //        File[] roots = File.listRoots();
 //        IconData iconDataDisk= new IconData(disk.getUserObject());
 //        FileNode nodeDisk = new FileNode(iconDataDisk.getObject());
 //        File f = new File(nodeDisk.m_file.getAbsolutePath());
 //        File f = new File(disk.getParentPath());
 
-
         FileNode fnode = getFileNode(disk);
         if (fnode == null) {
             return;
         }
-
-
 
         File[] listFile = fnode.m_file.listFiles();
         IconData idata=null;

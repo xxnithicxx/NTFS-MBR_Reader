@@ -1,7 +1,6 @@
 package File;
 
 import Entity.ItemDataObject;
-import GUI.FileTree;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -26,6 +25,7 @@ public class ItemNode {
         return m_item;
     }
 
+    @Override
     public String toString() {
         return m_item.getName().length() > 0 ? m_item.toString() :
                 m_item.getPath(m_item);
@@ -78,6 +78,10 @@ public class ItemNode {
 
             DefaultMutableTreeNode node = new
                     DefaultMutableTreeNode(iData);
+            if (nd.getFile().isFolder())
+                node.add(new DefaultMutableTreeNode(
+                        Boolean.TRUE));
+
             parent.add(node);
 
             if (nd.hasSubDirs())

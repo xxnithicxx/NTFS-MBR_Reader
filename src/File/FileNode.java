@@ -134,6 +134,7 @@ public class FileNode {
 
         return resizeIcon(temp);
     }
+
     public static ImageIcon resizeIcon(ImageIcon temp){
         Image img = temp.getImage();
         img = img.getScaledInstance(13,13,Image.SCALE_SMOOTH);

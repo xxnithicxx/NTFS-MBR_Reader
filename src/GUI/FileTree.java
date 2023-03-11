@@ -4,9 +4,7 @@ import Entity.DirTreeAbs;
 import Entity.FileSystemFactory;
 import Entity.Global;
 import Entity.ItemDataObject;
-import File.IconCellRenderer;
-import File.IconData;
-import File.ItemNode;
+import File.*;
 
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
@@ -24,7 +22,7 @@ import java.util.Map;
 import static Entity.Global.dirTreeAbs;
 import static File.ItemNode.resizeIcon;
 
-public class FileTree extends JFrame implements TreeSelectionListener {
+public class FileTree extends JFrame {
     public static final ImageIcon ICON_COMPUTER =
             new ImageIcon("./src/Img/computer.png");
     public static final ImageIcon ICON_DISK =
@@ -74,13 +72,17 @@ public class FileTree extends JFrame implements TreeSelectionListener {
 
 //        Init the disk node
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-                new IconData(resizeIcon(ICON_COMPUTER), null, new ItemNode(dirTreeAbs.getRoot())));
+                new IconData(resizeIcon(ICON_DISK), null, new ItemNode(dirTreeAbs.getRoot())));
 
         for (ItemDataObject item : items) {
             ImageIcon icon = getImageIcon(item);
-
+//            Check why the icon can't be resized
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(
                     new IconData(icon, null, new ItemNode(item)));
+
+            if (item.isFolder())
+                node.add(new DefaultMutableTreeNode(Boolean.TRUE));
+
             top.add(node);
         }
 
@@ -92,14 +94,11 @@ public class FileTree extends JFrame implements TreeSelectionListener {
         TreeCellRenderer renderer = new
                 IconCellRenderer(sizeicon);
         m_tree.setCellRenderer(renderer);
-
         m_tree.addTreeExpansionListener(new
                 DirExpansionListener());
-
         m_tree.addMouseListener(ml);
         m_tree.getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
-        m_tree.addTreeSelectionListener(this);
         m_tree.setShowsRootHandles(true);
         m_tree.setEditable(false);
 
@@ -193,10 +192,6 @@ public class FileTree extends JFrame implements TreeSelectionListener {
             return null;
     }
 
-    @Override
-    public void valueChanged(TreeSelectionEvent e) {
-    }
-
     //    Add tree to get ablosute path
     public void mySingleClick(int row, TreePath path) {
         DefaultMutableTreeNode node = getTreeNode(path);
@@ -211,9 +206,9 @@ public class FileTree extends JFrame implements TreeSelectionListener {
         DefaultMutableTreeNode node = getTreeNode(path);
         ItemNode fnode = getFileNode(node);
 
-        if (node.isLeaf()) {
+        if (node.isLeaf() && !fnode.getFile().isFolder()) {
             try {
-                if (isTextFile(fnode.getFile().getName()) && !fnode.getFile().isFolder()) {
+                if (isTextFile(fnode.getFile().getName())) {
                     fnode.displayFile();
                 } else {
                     JOptionPane.showMessageDialog(this, "Please open another applitcation to open", "NOTIFICATION", JOptionPane.WARNING_MESSAGE);
@@ -225,7 +220,7 @@ public class FileTree extends JFrame implements TreeSelectionListener {
     }
 
     // Make sure expansion is threaded and updating the tree model
-// only occurs within the event dispatching thread.
+    // only occurs within the event dispatching thread.
     class DirExpansionListener implements TreeExpansionListener {
         public void treeExpanded(TreeExpansionEvent event) {
             final DefaultMutableTreeNode node = getTreeNode(event.getPath());
