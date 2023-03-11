@@ -22,7 +22,7 @@ import java.util.Map;
 import static Entity.Global.dirTreeAbs;
 import static File.ItemNode.resizeIcon;
 
-public class FileTree extends JFrame {
+public class FileTree  {
     public static final ImageIcon ICON_COMPUTER =
             new ImageIcon("./src/Img/computer.png");
     public static final ImageIcon ICON_DISK =
@@ -49,6 +49,7 @@ public class FileTree extends JFrame {
     protected JTree m_tree;
     protected DefaultTreeModel m_model;
     protected JTextField m_display;
+    protected JFrame frameDisk;
     MouseListener ml = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
             int selRow = m_tree.getRowForLocation(e.getX(), e.getY());
@@ -63,9 +64,11 @@ public class FileTree extends JFrame {
         }
     };
 
-    public FileTree() {
-        super("Disk Explorer");
-        setSize(400, 300);
+    public FileTree(DefaultMutableTreeNode disk) {
+        frameDisk= new JFrame(String.valueOf(disk.getPath()));
+        frameDisk.setSize(400, 300);
+
+        Global.mainPath = "\\\\.\\" + disk.getPath()[1].toString().substring(0, 1) + ":";
 
         dirTreeAbs = FileSystemFactory.getFileSystem();
         List<ItemDataObject> items = dirTreeAbs.getRoot().getChildrens();
@@ -104,20 +107,20 @@ public class FileTree extends JFrame {
 
         JScrollPane s = new JScrollPane();
         s.getViewport().add(m_tree);
-        getContentPane().add(s, BorderLayout.CENTER);
+        frameDisk.getContentPane().add(s, BorderLayout.CENTER);
 
         m_display = new JTextField();
         m_display.setEditable(false);
-        getContentPane().add(m_display, BorderLayout.NORTH);
+        frameDisk.getContentPane().add(m_display, BorderLayout.NORTH);
 
         WindowListener wndCloser = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         };
-        addWindowListener(wndCloser);
+        frameDisk.addWindowListener(wndCloser);
 
-        setVisible(true);
+        frameDisk.setVisible(true);
     }
 
     public static ImageIcon getImageIcon(ItemDataObject item) {
@@ -211,7 +214,7 @@ public class FileTree extends JFrame {
                 if (isTextFile(fnode.getFile().getName())) {
                     fnode.displayFile();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Please open another applitcation to open", "NOTIFICATION", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frameDisk, "Please open another applitcation to open", "NOTIFICATION", JOptionPane.WARNING_MESSAGE);
                 }
             } catch (IOException | BadLocationException ex) {
                 throw new RuntimeException(ex);

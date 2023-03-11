@@ -180,11 +180,6 @@ public class TreeDisk
     }
 
 
-    public void valueChanged(TreeSelectionEvent e) {
-//        DefaultMutableTreeNode DefaultMutableTreeNode;
-
-    }
-
     // Make sure expansion is threaded and updating the tree model
     // only occurs within the event dispatching thread.
     class DirExpansionListener implements TreeExpansionListener

@@ -73,7 +73,7 @@ public class TreeComputer {
                     DefaultMutableTreeNode disk = (DefaultMutableTreeNode) (selPath.getLastPathComponent());
                     System.out.println("Mouse");
 
-                    new TreeDisk(disk);
+                    new FileTree(disk);
 //                    frameComputer.setEnabled(false);
                 }
             }
