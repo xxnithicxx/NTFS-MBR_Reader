@@ -119,8 +119,15 @@ public class FileTree  {
                 System.exit(0);
             }
         };
-        frameDisk.addWindowListener(wndCloser);
 
+        frameDisk.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                TreeComputer.frameComputer.setEnabled(true);
+            }
+        });
+
+        frameDisk.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frameDisk.setVisible(true);
     }
 

@@ -14,10 +14,11 @@ public class TreeComputer {
             new ImageIcon("./src/Img/computer.png");
     public static final ImageIcon ICON_DISK =
             new ImageIcon("./src/Img/disk.png");
-    protected JTree Main_tree;
+    public static JTree Main_tree;
     protected DefaultTreeModel Main_model;
     protected JTextField Main_display;
-    protected JFrame frameComputer;
+    public static JScrollPane s;
+    public static JFrame frameComputer;
     TreeComputer(){
         frameComputer = new JFrame("My Computer");
 //        super("My Computer");
@@ -44,7 +45,7 @@ public class TreeComputer {
         Main_tree.addMouseListener(ml_mainTree);
         Main_tree.setShowsRootHandles(true);
         Main_tree.setEditable(false);
-        JScrollPane s = new JScrollPane();
+        s = new JScrollPane();
         s.getViewport().add(Main_tree);
         frameComputer.getContentPane().add(s, BorderLayout.CENTER);
 
@@ -60,7 +61,7 @@ public class TreeComputer {
                 System.exit(0);
             }
         };
-//        addWindowListener(wndCloser);
+        frameComputer.addWindowListener(wndCloser);
 
         frameComputer.setVisible(true);
     }
@@ -76,7 +77,7 @@ public class TreeComputer {
                     System.out.println("Mouse");
 
                     new FileTree(disk);
-//                    frameComputer.setEnabled(false);
+                    frameComputer.setEnabled(false);
                 }
             }
 

@@ -149,7 +149,12 @@ public class TreeDisk
         JScrollPane s = new JScrollPane();
         s.getViewport().add(m_tree);
         frameDisk.getContentPane().add(s, BorderLayout.CENTER);
+        frameDisk.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 
+            }
+        });
         m_display = new JTextField();
         m_display.setEditable(false);
         frameDisk.getContentPane().add(m_display, BorderLayout.NORTH);
