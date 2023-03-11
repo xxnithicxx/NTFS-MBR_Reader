@@ -34,6 +34,10 @@ public class FileInfo {
                     + name);
         }
     }
+
+    public FileInfo(Object object) {
+    }
+
     public String toString() {
         return FileName;
     }

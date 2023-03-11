@@ -1,6 +1,6 @@
 package File;
 
-import GUI.FileTree1;
+import GUI.TreeDisk;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -12,8 +12,8 @@ import java.awt.*;
 import java.io.*;
 import java.util.Vector;
 
-import static GUI.FileTree1.ICON_EXPANDEDFOLDER;
-import static GUI.FileTree1.ICON_FOLDER;
+import static GUI.TreeDisk.ICON_EXPANDEDFOLDER;
+import static GUI.TreeDisk.ICON_FOLDER;
 
 public class FileNode {
     public File m_file;
@@ -21,7 +21,10 @@ public class FileNode {
     public FileNode(File file) {
         m_file = file;
     }
-
+    public FileNode(Object object)
+    {
+        m_file = (File) object;
+    }
     public File getFile() {
         return m_file;
     }
@@ -32,15 +35,16 @@ public class FileNode {
     }
 
     public boolean expand(DefaultMutableTreeNode parent) {
-        DefaultMutableTreeNode flag =
-                (DefaultMutableTreeNode) parent.getFirstChild();
-        if (flag == null)    // No flag
-            return false;
-        Object obj = flag.getUserObject();
-        if (!(obj instanceof Boolean))
-            return false;      // Already expanded
-
-        parent.removeAllChildren();  // Remove Flag
+//        if(parent)
+//        DefaultMutableTreeNode flag =
+//                (DefaultMutableTreeNode) parent.getFirstChild();
+//        if (flag == null)    // No flag
+//            return false;
+//        Object obj = flag.getUserObject();
+//        if (!(obj instanceof Boolean))
+//            return false;      // Already expanded
+//
+//        parent.removeAllChildren();  // Remove Flag
 
         File[] files = listFiles();
         if (files == null)
@@ -50,8 +54,6 @@ public class FileNode {
 
         for (int k = 0; k < files.length; k++) {
             File f = files[k];
-//            if (!(f.isDirectory()))
-//                continue;
 
             FileNode newNode = new FileNode(f);
 
@@ -91,7 +93,7 @@ public class FileNode {
 
         return true;
     }
-    ImageIcon iconFile(File file){
+    public static ImageIcon iconFile(File file){
         ImageIcon temp = null;
         if (file.isFile() && (
                 file.getName().endsWith(".jpg") ||
@@ -99,34 +101,34 @@ public class FileNode {
                         file.getName().endsWith(".png") ||
                         file.getName().endsWith(".gif") ||
                         file.getName().endsWith(".bmp"))) {
-            temp = GUI.FileTree1.ICON_IMG;
+            temp = TreeDisk.ICON_IMG;
         }
         else if (file.isFile() && (
                 file.getName().endsWith(".xlsx") ||
                         file.getName().endsWith(".xls"))) {
-            temp =  GUI.FileTree1.ICON_EXCEL;
+            temp =  TreeDisk.ICON_EXCEL;
         }
         else if (file.isFile() && (
                 file.getName().endsWith(".docx") ||
                         file.getName().endsWith(".doc"))) {
-            temp = GUI.FileTree1.ICON_WORD;
+            temp = TreeDisk.ICON_WORD;
         }
         else if (file.isFile() && (
                 file.getName().endsWith(".pptx") ||
                         file.getName().endsWith(".ppt"))) {
-            temp=  GUI.FileTree1.ICON_PPT;
+            temp=  TreeDisk.ICON_PPT;
         }
         else if (file.isFile() &&
                 file.getName().endsWith(".pdf")) {
-            temp =  GUI.FileTree1.ICON_PDF;
+            temp =  TreeDisk.ICON_PDF;
         }
         else if (file.isFile() &&
                 file.getName().endsWith(".rar")) {
-            temp =  GUI.FileTree1.ICON_WINRAR;
+            temp =  TreeDisk.ICON_WINRAR;
         }
         else if (file.isFile() &&
                 file.getName().endsWith(".txt")) {
-            temp = GUI.FileTree1.ICON_TXT;
+            temp = TreeDisk.ICON_TXT;
         }
         else return null;
 
@@ -155,6 +157,7 @@ public class FileNode {
     }
 
     protected File[] listFiles() {
+        if (m_file == null) return null;
         if (!m_file.isDirectory())
             return null;
         try {

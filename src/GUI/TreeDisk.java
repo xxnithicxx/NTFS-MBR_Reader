@@ -1,19 +1,17 @@
 package GUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.tree.*;
 import javax.swing.event.*;
 import File.*;
-import static javax.swing.text.StyleConstants.Size;
 
-public class FileTree1 extends JFrame implements TreeSelectionListener
+import static File.FileNode.resizeIcon;
+
+public class TreeDisk extends JFrame
 {
     public static final ImageIcon ICON_COMPUTER =
             new ImageIcon("./src/Img/computer.png");
@@ -42,25 +40,102 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
     protected DefaultTreeModel m_model;
     protected JTextField m_display;
 
-    public FileTree1()
+
+//    public void rootMain()
+//    {
+//        DefaultMutableTreeNode root = new DefaultMutableTreeNode(
+//                new IconData(FileNode.resizeIcon(ICON_COMPUTER), null, "Computer"));
+//
+//        DefaultMutableTreeNode node;
+//        File[] roots = File.listRoots();
+//        for (int k=0; k<roots.length; k++)
+//        {
+//            node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
+//                    null, new FileNode(roots[k])));
+//            root.add(node);
+//            node.add( new DefaultMutableTreeNode(Boolean.valueOf(true)));
+//        }
+//        DefaultTreeModel Main_model = new DefaultTreeModel(root);
+//        JTree Main_tree = new JTree(Main_model);
+//        Main_tree.putClientProperty("JTree.lineStyle", "Angled");
+//        int sizeicon = 8;
+//        TreeCellRenderer renderer = new
+//                IconCellRenderer(sizeicon);
+//        Main_tree.setCellRenderer(renderer);
+//        Main_tree.addMouseListener(ml_mainTree);
+//        Main_tree.setShowsRootHandles(true);
+//        Main_tree.setEditable(false);
+//        JScrollPane s = new JScrollPane();
+//        s.getViewport().add(Main_tree);
+//        getContentPane().add(s, BorderLayout.CENTER);
+//
+//        JTextField Main_display;
+//        Main_display = new JTextField();
+//        Main_display.setEditable(false);
+//        getContentPane().add(Main_display, BorderLayout.NORTH);
+//
+//        WindowListener wndCloser = new WindowAdapter()
+//        {
+//            public void windowClosing(WindowEvent e)
+//            {
+//                System.exit(0);
+//            }
+//        };
+//        addWindowListener(wndCloser);
+//
+//        setVisible(true);
+//    }
+
+    public TreeDisk(DefaultMutableTreeNode disk)
     {
-        super("My Computer");
+        super(String.valueOf(disk.getPath()));
         setSize(400, 300);
 
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-                new IconData(FileNode.resizeIcon(ICON_COMPUTER), null, "Computer"));
 
-        DefaultMutableTreeNode node;
-        File[] roots = File.listRoots();
-        for (int k=0; k<roots.length; k++)
-        {
-            node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
-                    null, new FileNode(roots[k])));
-            top.add(node);
-            node.add( new DefaultMutableTreeNode(Boolean.valueOf(true)));
+
+//        File[] roots = File.listRoots();
+//        IconData iconDataDisk= new IconData(disk.getUserObject());
+//        FileNode nodeDisk = new FileNode(iconDataDisk.getObject());
+//        File f = new File(nodeDisk.m_file.getAbsolutePath());
+//        File f = new File(disk.getParentPath());
+
+
+        FileNode fnode = getFileNode(disk);
+        if (fnode == null) {
+            return;
         }
 
-        m_model = new DefaultTreeModel(top);
+
+
+        File[] listFile = fnode.m_file.listFiles();
+        IconData idata=null;
+
+        for (File sf : listFile)
+        {
+            if (sf.isDirectory())
+            {
+                idata = new IconData(resizeIcon(ICON_FOLDER),
+                        resizeIcon(ICON_EXPANDEDFOLDER), new FileNode(sf));
+            }
+            else{
+                idata = new IconData(FileNode.iconFile(sf),
+                        FileNode.iconFile(sf), new FileNode(sf));
+            }
+            DefaultMutableTreeNode node = new
+                    DefaultMutableTreeNode(idata);
+            disk.add(node);
+        }
+//        nodeDisk.expand(disk);
+//        for (int k=0; k<roots.length; k++)
+//        {
+//            node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
+//                    null, new FileNode(roots[k])));
+//            disk.add(node);
+//            node.add( new DefaultMutableTreeNode(Boolean.valueOf(true)));
+//        }
+
+
+        m_model = new DefaultTreeModel(disk);
         m_tree = new JTree(m_model);
 
         m_tree.putClientProperty("JTree.lineStyle", "Angled");
@@ -72,12 +147,7 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
         m_tree.addTreeExpansionListener(new
                 DirExpansionListener());
 
-//        m_tree.addTreeSelectionListener(new
-//                DirSelectionListener());
         m_tree.addMouseListener(ml);
-        m_tree.getSelectionModel().setSelectionMode(
-                TreeSelectionModel.SINGLE_TREE_SELECTION);
-        m_tree.addTreeSelectionListener(this);
         m_tree.setShowsRootHandles(true);
         m_tree.setEditable(false);
 
@@ -89,17 +159,12 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
         m_display.setEditable(false);
         getContentPane().add(m_display, BorderLayout.NORTH);
 
-        WindowListener wndCloser = new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent e)
-            {
-                System.exit(0);
-            }
-        };
-        addWindowListener(wndCloser);
+        super.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         setVisible(true);
     }
+
+
 
     DefaultMutableTreeNode getTreeNode(TreePath path)
     {
@@ -119,7 +184,7 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
             return null;
     }
 
-    @Override
+
     public void valueChanged(TreeSelectionEvent e) {
 //        DefaultMutableTreeNode DefaultMutableTreeNode;
 
@@ -157,6 +222,7 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
 
         public void treeCollapsed(TreeExpansionEvent event) {}
     }
+
 
     MouseListener ml = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
@@ -221,9 +287,6 @@ public class FileTree1 extends JFrame implements TreeSelectionListener
 
 
 
-    public static void main(String argv[])
-    {
-        new FileTree1();
-    }
+
 }
 
