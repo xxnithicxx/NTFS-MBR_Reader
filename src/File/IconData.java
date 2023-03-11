@@ -1,4 +1,6 @@
 package File;
+import Entity.ItemDataObject;
+
 import javax.swing.*;
 
 public class IconData {
@@ -10,10 +12,6 @@ public class IconData {
         m_icon = icon;
         m_expandedIcon = expandedIcon;
         m_data = data;
-    }
-    public IconData(Object ob)
-    {
-
     }
 
     public Icon getIcon() {
@@ -28,6 +26,7 @@ public class IconData {
         return m_data;
     }
 
+    @Override
     public String toString() {
         return m_data.toString();
     }

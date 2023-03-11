@@ -30,7 +30,6 @@ public class ItemDataObject {
         if (isFolder) {
             this.childrens = new ArrayList<>();
 
-            DataReader dataReader = new DataReader();
             EntryReader entryReader = new EntryReader(Global.mainPath);
             ArrayList<ArrayList<String>> entries;
 
@@ -155,6 +154,9 @@ public class ItemDataObject {
     public String getTxtData() {
         byte[] bytes;
 
+        if (this.getStartCluster() == 0)
+            return "";
+
         try (DataReader dataReader = new DataReader()) {
             bytes = dataReader.read((int) this.getStartCluster());
         } catch (Exception e) {
@@ -166,12 +168,10 @@ public class ItemDataObject {
 
     @Override
     public String toString() {
-        return "ItemDataObject{" +
-                "name='" + name + '\'' +
-                ", size=" + size +
-                ", status='" + status + '\'' +
-                ", startCluster=" + startCluster +
-                '}';
+        return  name +
+                "    size=" + size +
+                " status='" + status + '\'' +
+                " startCluster=" + startCluster;
     }
 
     public String getExtension() {
