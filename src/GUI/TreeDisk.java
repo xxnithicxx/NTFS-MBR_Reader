@@ -197,24 +197,14 @@ public class TreeDisk
             Object obtemp = node.getUserObject();
             IconData tempicon = new IconData(obtemp);
             System.out.println(tempicon.getIcon());
-            Thread runner = new Thread()
-            {
-                public void run()
+            Thread runner = new Thread(() -> {
+                System.out.println(tempicon.getIcon());
+                if (fnode != null && fnode.expand(node))
                 {
-                    System.out.println(tempicon.getIcon());
-                    if (fnode != null && fnode.expand(node))
-                    {
-                        Runnable runnable = new Runnable()
-                        {
-                            public void run()
-                            {
-                                m_model.reload(node);
-                            }
-                        };
-                        SwingUtilities.invokeLater(runnable);
-                    }
+                    Runnable runnable = () -> m_model.reload(node);
+                    SwingUtilities.invokeLater(runnable);
                 }
-            };
+            });
             runner.start();
         }
 

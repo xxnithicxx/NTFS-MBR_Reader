@@ -21,7 +21,7 @@ public class TreeComputer {
     public static JFrame frameComputer;
     TreeComputer(){
         frameComputer = new JFrame("My Computer");
-//        super("My Computer");
+
         frameComputer.setSize(400, 300);
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(
                 new IconData(FileNode.resizeIcon(ICON_COMPUTER), null, "Computer"));
@@ -31,7 +31,6 @@ public class TreeComputer {
         for (File file : roots) {
             node = new DefaultMutableTreeNode(new IconData(FileNode.resizeIcon(ICON_DISK),
                     null, new FileNode(file)));
-
             root.add(node);
         }
 
@@ -74,13 +73,11 @@ public class TreeComputer {
                 if (e.getClickCount() == 2) {
                     assert selPath != null;
                     DefaultMutableTreeNode disk = (DefaultMutableTreeNode) (selPath.getLastPathComponent());
-                    System.out.println("Mouse");
 
                     new FileTree(disk);
                     frameComputer.setEnabled(false);
                 }
             }
-
         }
     };
     public static void main(String []args)

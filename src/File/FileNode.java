@@ -38,7 +38,6 @@ public class FileNode {
         Object obtemp = parent.getUserObject();
         IconData tempicon = new IconData(obtemp);
         if (tempicon.getIcon() != null) {
-            System.out.println("Hi");
             DefaultMutableTreeNode flag =
                     (DefaultMutableTreeNode) parent.getFirstChild();
             if (flag == null)    // No flag
@@ -47,6 +46,7 @@ public class FileNode {
             if (!(obj instanceof Boolean))
                 return false;      // Already expanded
         }
+
         parent.removeAllChildren();  // Remove Flag
 
         File[] files = listFiles();
