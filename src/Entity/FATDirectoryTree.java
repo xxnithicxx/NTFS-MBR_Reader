@@ -1,10 +1,19 @@
 package Entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import Reader.EntryReader;
 
-public class FATDirectoryTree {
+import java.util.*;
+
+public class FATDirectoryTree implements DirTreeAbs {
     private ItemDataObject root = null;
+
+//    TODO:  Check if the Global.mainPath is FAT32 in FileSystemFactory.java
+    public FATDirectoryTree() {
+        try (EntryReader entryReader = new EntryReader(Global.mainPath)) {
+            ArrayList<ArrayList<String>> entry = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());
+            this.initRoot(entry);
+        }
+    }
 
     public void initRoot(ArrayList<ArrayList<String>> entry) {
         ItemEntry item = new ItemEntry(entry.get(0));
@@ -15,23 +24,70 @@ public class FATDirectoryTree {
         return this.root;
     }
 
-    public String getPath(String name) {
-        name = name.toUpperCase();
+    public String getPath(ItemDataObject key) {
         ItemDataObject temp = this.root;
 
-        if (temp.getName().equals(name)) {
+        if (temp.equals(key)) {
             return temp.getName();
         }
 
         List<ItemDataObject> childrens = temp.getChildrens();
-
         for (ItemDataObject item : childrens) {
-            String tempPath = item.search(name);
+            String tempPath = item.searchPath(key);
             if (!tempPath.equals("")) {
                 return temp.getName() + "\\" + tempPath;
             }
         }
 
         return "Not Found";
+    }
+
+    public TreeMap<String, ItemDataObject> getAllItems() {
+        HashMap<String, ItemDataObject> map = new HashMap<>();
+        TreeMap<String, ItemDataObject> items = new TreeMap<>(new ValueComparator(map));
+
+        ItemDataObject temp = this.root;
+        List<ItemDataObject> childrens = temp.getChildrens();
+
+        for (ItemDataObject children : childrens) {
+            children.getAllItems(map, temp.getName());
+        }
+
+        items.putAll(map);
+        return items;
+    }
+}
+
+class ValueComparator implements Comparator<String> {
+    Map<String, ItemDataObject> base;
+
+    public ValueComparator(Map<String, ItemDataObject> base) {
+        this.base = base;
+    }
+
+    public int compare(String a, String b) {
+        int countA = 0;
+        int countB = 0;
+
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) == '\\') {
+                countA++;
+            }
+        }
+
+        for (int i = 0; i < b.length(); i++) {
+            if (b.charAt(i) == '\\') {
+                countB++;
+            }
+        }
+
+        if (countA == countB) {
+            if (a.length() == b.length())
+                return -1;
+
+            return a.length() - b.length();
+        }
+
+        return countA - countB;
     }
 }

@@ -5,6 +5,7 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -45,7 +46,7 @@ public class NTFSReader {
 
                 // Đọc entry đầu tiên trong bảng MFT để lấy thông tin về cấu trúc entry
 
-                ByteBuffer mftEntry = ByteBuffer.allocate((int) 1024);
+                ByteBuffer mftEntry = ByteBuffer.allocate(1024);
                 fc.read(mftEntry, mftOffset);
                 mftEntry.flip();
 
@@ -73,7 +74,7 @@ public class NTFSReader {
                         int IDAtr = getUnsignedShort2(mftEntry.array(), AtributeOfOffsetInformationFile);
 
                         int attrLengthStandardInformation = getUnsignedShort2(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + 4);
+                                AtributeOfOffsetInformationFile + 4);
 
                         int isName = getUnsignedByte(mftEntry.array(), AtributeOfOffsetInformationFile + 9);
 
@@ -85,90 +86,90 @@ public class NTFSReader {
                         // cho biết standInformation file dài bao nhiêu để nhảy qua file name
 
                         int contentSizeStandardIformation = getUnsignedShort2(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + 16);
+                                AtributeOfOffsetInformationFile + 16);
 
                         // vị trí bắt đầu nội dung của standard information
                         int OffsetStartContentStandardInformation = getUnsignedShort(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + 20);
+                                AtributeOfOffsetInformationFile + 20);
 
                         // BẮT ĐẦU ĐỌC NỘI DUNG CỦA STANDARD INFFORMATION
 
                         long timeCreate = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation);
+                                AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation);
                         Instant instantCreate = Instant.ofEpochMilli((timeCreate - 116444736000000000L) / 10000L);
                         ZonedDateTime zonedDateTimeCreate = instantCreate.atZone(ZoneId.systemDefault());
                         System.out.println(zonedDateTimeCreate);
                         // Date date = (Date) Date.from(zonedDateTime.toInstant());
 
                         long timeModified = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 16);
+                                AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 16);
                         Instant instanttimeModified = Instant
-                                        .ofEpochMilli((timeModified - 116444736000000000L) / 10000L);
+                                .ofEpochMilli((timeModified - 116444736000000000L) / 10000L);
                         ZonedDateTime zonedDateTimeModified = instanttimeModified.atZone(ZoneId.systemDefault());
                         System.out.println(zonedDateTimeModified);
 
                         long timeAccessed = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 24);
+                                AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 24);
                         Instant instanttimeAccessed = Instant
-                                        .ofEpochMilli((timeModified - 116444736000000000L) / 10000L);
+                                .ofEpochMilli((timeModified - 116444736000000000L) / 10000L);
                         ZonedDateTime zonedDateTimeAccessed = instanttimeAccessed.atZone(ZoneId.of("Asia/Ho_Chi_Minh"));
                         System.out.println(zonedDateTimeAccessed);
 
                         int flag = getUnsignedShort2(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 32);
+                                AtributeOfOffsetInformationFile + OffsetStartContentStandardInformation + 32);
                         // ĐỌC HEADER CỦA FILE NAME
                         int idTypeFileName = getUnsignedShort2(mftEntry.array(), AtributeOfOffsetInformationFile +
-                                        attrLengthStandardInformation);
+                                attrLengthStandardInformation);
                         int atrLengthFileName = getUnsignedShort2(mftEntry.array(), AtributeOfOffsetInformationFile +
-                                        attrLengthStandardInformation + 4);
+                                attrLengthStandardInformation + 4);
                         int residentOrNot = getUnsignedByte(mftEntry.array(), AtributeOfOffsetInformationFile +
-                                        attrLengthStandardInformation + 8);
+                                attrLengthStandardInformation + 8);
                         int IsNamedFilename = getUnsignedShort2(mftEntry.array(), AtributeOfOffsetInformationFile +
-                                        attrLengthStandardInformation + 10);
+                                attrLengthStandardInformation + 10);
                         int flagFilename = getUnsignedShort(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        +12);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        +12);
                         int OffsetStartContentFileName = getUnsignedShort(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation + 20);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation + 20);
                         // BẮT ĐẦU ĐỌC THÔNG TIN CỦA FILE NAME
                         long AddressParentEntry = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName);
                         String strAddressParentEntry = Long.toHexString(AddressParentEntry);
 
                         long timeCreateFileName = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName + 8);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName + 8);
                         Instant instantCreateFileName = Instant
-                                        .ofEpochMilli((timeCreate - 116444736000000000L) / 10000L);
+                                .ofEpochMilli((timeCreate - 116444736000000000L) / 10000L);
                         ZonedDateTime zonedDateTimeCreateFileName = instantCreate.atZone(ZoneId.systemDefault());
                         System.out.println(zonedDateTimeCreateFileName);
 
                         int isAchive = getUnsignedShort2(mftEntry.array(), AtributeOfOffsetInformationFile +
-                                        attrLengthStandardInformation + OffsetStartContentFileName + 56);
+                                attrLengthStandardInformation + OffsetStartContentFileName + 56);
                         // attribute loại file name
 
                         int dinhdangtep = getUnsignedByte(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName + 65);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName + 65);
                         int nameLength = getUnsignedByte(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName + 64);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName + 64);
                         long nameFile = getUnsignedLong(mftEntry.array(),
-                                        AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName + 66);
+                                AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName + 66);
                         String hexName = Integer
-                                        .toHexString(AtributeOfOffsetInformationFile + attrLengthStandardInformation +
-                                                        OffsetStartContentFileName + 66);
+                                .toHexString(AtributeOfOffsetInformationFile + attrLengthStandardInformation +
+                                        OffsetStartContentFileName + 66);
                         int hexNumberName = Integer.parseInt(hexName, 16);
                         byte[] byteArray = new byte[8];
 
                         ByteBuffer buffer1 = ByteBuffer.wrap(mftEntry.array());
                         byte[] nameBytes = readBytesFromBuffer(buffer1, hexNumberName, nameLength * 2);
-                        String name = Charset.forName("UTF-16LE").decode(ByteBuffer.wrap(nameBytes)).toString();
+                        String name = StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(nameBytes)).toString();
 
                         int OffsetStartDATA = AtributeOfOffsetInformationFile + attrLengthStandardInformation
-                                        + atrLengthFileName;
+                                + atrLengthFileName;
                         int IDData = getUnsignedShort2(mftEntry.array(), OffsetStartDATA);
                         int atrLengthData = getUnsignedShort2(mftEntry.array(), OffsetStartDATA + 4);
                         int IsResidentOrNot = getUnsignedByte(mftEntry.array(), OffsetStartDATA + 8);
@@ -180,31 +181,31 @@ public class NTFSReader {
                         String hex = Integer.toHexString(OffsetStartDATA + OffsetStartContentData);
                         int hexNumber = Integer.parseInt(hex, 16);
                         byte[] DataBytes = readBytesFromBuffer(bufferData,
-                                        hexNumber,
-                                        nameLength * 2);
-                        String ContentData = Charset.forName("UTF-16LE").decode(ByteBuffer.wrap(DataBytes))
-                                        .toString();
+                                hexNumber,
+                                nameLength * 2);
+                        String ContentData = StandardCharsets.UTF_16LE.decode(ByteBuffer.wrap(DataBytes))
+                                .toString();
 
                         int OffsetStartIndexRoot = AtributeOfOffsetInformationFile + attrLengthStandardInformation
-                                        + atrLengthFileName + atrLengthData;
+                                + atrLengthFileName + atrLengthData;
                         int IDIndexRoot = getUnsignedShort2(mftEntry.array(), OffsetStartIndexRoot);
                         int attriLengObjectID = getUnsignedShort2(mftEntry.array(), OffsetStartIndexRoot + 4);
 
                         int OffsetStartIndexRoot1 = AtributeOfOffsetInformationFile + attrLengthStandardInformation
-                                        + atrLengthFileName + atrLengthData + attriLengObjectID;
+                                + atrLengthFileName + atrLengthData + attriLengObjectID;
                         int IDIndexRoot1 = getUnsignedShort2(mftEntry.array(), OffsetStartIndexRoot1);
                         int attriLengObjectID1 = getUnsignedShort2(mftEntry.array(), OffsetStartIndexRoot1 + 4);
                         int sizeOfEachINDXRecord = getUnsignedShort2(mftEntry.array(), OffsetStartIndexRoot1 + 8);
 
                         int OffsetStartIndexAllocation = AtributeOfOffsetInformationFile + attrLengthStandardInformation
-                                        + atrLengthFileName + atrLengthData + attriLengObjectID + attriLengObjectID1;
+                                + atrLengthFileName + atrLengthData + attriLengObjectID + attriLengObjectID1;
                         int flagINDX = getUnsignedByte(mftEntry.array(), OffsetStartIndexRoot1 + 12);
 
                         int IDIndexAllocation = getUnsignedShort2(mftEntry.array(), OffsetStartIndexAllocation);
                         int attriLengINDXAllocation = getUnsignedShort2(mftEntry.array(),
-                                        OffsetStartIndexAllocation + 4);
+                                OffsetStartIndexAllocation + 4);
                         int totalEntryInArrINDXAllocation = getUnsignedShort(mftEntry.array(),
-                                        OffsetStartIndexAllocation + 6);
+                                OffsetStartIndexAllocation + 6);
                         long clusterNumber = getUnsignedLong(mftEntry.array(), OffsetStartIndexAllocation + 16);
                         int a = 0;
                         // AtributeOfOffsetInformationFile += atrLengthData;
@@ -216,7 +217,6 @@ public class NTFSReader {
                         // -----------------------------------------------------------------------------------------------
 
                 }
-
         }
 
         private static int getUnsignedByte(byte[] bytes, int offset) {
@@ -240,11 +240,9 @@ public class NTFSReader {
                 bb.order(ByteOrder.LITTLE_ENDIAN);
 
                 return bb.getLong() & 0xFFFFFFFFFFFFFFFEL;
-
         }
 
         private static byte[] readBytesFromBuffer(ByteBuffer buffer, int offset, int length) {
-
                 byte[] bytes = new byte[length];
                 buffer.position(offset);
                 buffer.get(bytes);

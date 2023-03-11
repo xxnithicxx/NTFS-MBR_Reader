@@ -15,7 +15,7 @@ public class IconCellRenderer
     protected Color m_borderSelectionColor;
 
     protected boolean m_selected;
-    private int iconSize;
+    private final int iconSize;
 
     public IconCellRenderer(int iconSize) {
         super();
@@ -44,8 +44,7 @@ public class IconCellRenderer
         if (obj instanceof Boolean)
             setText("Retrieving data...");
 
-        if (obj instanceof IconData) {
-            IconData idata = (IconData) obj;
+        if (obj instanceof IconData idata) {
             if (expanded)
                 setIcon(idata.getExpandedIcon());
             else

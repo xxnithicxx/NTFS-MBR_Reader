@@ -125,28 +125,6 @@ public class ItemEntry {
         return hexStringToDecimal(Utils.littleToBigEndian(low + high));
     }
 
-    public String getTxtData() {
-        if (isDeleted())
-            return "isDeleted";
-
-        if (isFolder())
-            return "isFolder";
-
-        if (this.getName().contains(".TXT") || this.getName().contains(Global.txtUTF16)) {
-            byte[] bytes;
-
-            try (DataReader dataReader = new DataReader()) {
-                bytes = dataReader.read((int) this.getStartCluster());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            return new String(bytes).trim();
-        }
-
-        return "isNotTxt";
-    }
-
     public boolean isDeleted() {
         if (this.entryList.get(0).equals("00")) {
             return true;

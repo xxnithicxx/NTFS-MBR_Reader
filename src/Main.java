@@ -1,9 +1,10 @@
 import Entity.FATDirectoryTree;
 import Entity.Global;
-import Entity.ItemEntry;
+import Entity.ItemDataObject;
 import Reader.EntryReader;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,7 +15,10 @@ public class Main {
             tree.initRoot(entry);
         }
 
-        System.out.println(tree.getPath("Truong Binh.txt"));
+        Map<String, ItemDataObject> items = tree.getAllItems();
+
+        for (Map.Entry<String, ItemDataObject> item : items.entrySet()) {
+            System.out.println(item.getValue());
+        }
     }
 }
-

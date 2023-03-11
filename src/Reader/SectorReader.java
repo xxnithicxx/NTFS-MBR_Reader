@@ -6,6 +6,10 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import static Helper.Utils.byteArrayToAsciiString;
+import static Helper.Utils.hexStringToByteArray;
 
 public class SectorReader implements AutoCloseable{
     private final DataInputStream inputStream;
@@ -24,7 +28,7 @@ public class SectorReader implements AutoCloseable{
             throw new IOException("Unable to skip to sector");
         }
 
-        int bytesRead = inputStream.read(sectorData, 0, sectorSize);
+        inputStream.read(sectorData, 0, sectorSize);
 
         return sectorData;
     }
