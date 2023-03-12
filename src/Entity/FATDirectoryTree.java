@@ -7,7 +7,6 @@ import java.util.*;
 public class FATDirectoryTree implements DirTreeAbs {
     private ItemDataObject root = null;
 
-//    TODO:  Check if the Global.mainPath is FAT32 in FileSystemFactory.java
     public FATDirectoryTree() {
         try (EntryReader entryReader = new EntryReader(Global.mainPath)) {
             ArrayList<ArrayList<String>> entry = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());

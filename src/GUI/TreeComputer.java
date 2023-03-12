@@ -19,7 +19,7 @@ public class TreeComputer {
     protected JTextField Main_display;
     public static JScrollPane s;
     public static JFrame frameComputer;
-    TreeComputer(){
+    public TreeComputer(){
         frameComputer = new JFrame("My Computer");
 
         frameComputer.setSize(400, 300);
@@ -61,6 +61,8 @@ public class TreeComputer {
             }
         };
         frameComputer.addWindowListener(wndCloser);
+
+        frameComputer.setLocationRelativeTo(null);
 
         frameComputer.setVisible(true);
     }

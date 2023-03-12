@@ -18,6 +18,7 @@ public class ItemDataObject {
     private long size;
     private String status;
     private long startCluster;
+    private String content = null;
     private List<ItemDataObject> childrens = null;
 
     public ItemDataObject(String name, long size, String status, long startCluster, boolean isFolder) {
@@ -152,6 +153,7 @@ public class ItemDataObject {
     }
 
     public String getTxtData() {
+//        TODO: Check if this is NTFS or FAT32
         byte[] bytes;
 
         if (this.getStartCluster() == 0)

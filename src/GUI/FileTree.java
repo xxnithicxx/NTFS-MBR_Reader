@@ -68,7 +68,7 @@ public class FileTree  {
         frameDisk= new JFrame(String.valueOf(disk.getPath()));
         frameDisk.setSize(400, 300);
 
-        Global.mainPath = "\\\\.\\" + disk.getPath()[1].toString().substring(0, 1) + ":";
+        Global.mainPath = "\\\\.\\" + disk.getPath()[1].toString().charAt(0) + ":";
 
         dirTreeAbs = FileSystemFactory.getFileSystem();
         List<ItemDataObject> items = dirTreeAbs.getRoot().getChildrens();
@@ -126,6 +126,8 @@ public class FileTree  {
                 TreeComputer.frameComputer.setEnabled(true);
             }
         });
+
+        frameDisk.setLocationRelativeTo(null);
 
         frameDisk.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frameDisk.setVisible(true);

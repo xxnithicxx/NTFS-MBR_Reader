@@ -83,7 +83,7 @@ public class FileNode {
             }
             else{
                 idata = new IconData(iconFile(nd.m_file),
-                        nd.iconFile(nd.m_file), nd);
+                        iconFile(nd.m_file), nd);
             }
             DefaultMutableTreeNode node = new
                     DefaultMutableTreeNode(idata);
@@ -175,7 +175,7 @@ public class FileNode {
     }
     public void displayFile(String path) throws IOException, BadLocationException {
 
-        JFrame frame = new JFrame(path.substring(path.lastIndexOf('/')+1,path.length()));
+        JFrame frame = new JFrame(path.substring(path.lastIndexOf('/')+1));
         ImageIcon img = new ImageIcon("/Users/user/Practice/Tree/TestTree/src/Img/txt.png");
         frame.setIconImage(img.getImage());
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

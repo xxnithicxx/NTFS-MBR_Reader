@@ -13,10 +13,6 @@ import static Helper.Utils.*;
 public class ItemEntry {
     private final ArrayList<String> entryList;
 
-    public ItemEntry() {
-        this.entryList = new ArrayList<>();
-    }
-
     public ItemEntry(ArrayList<String> entryList) {
         this.entryList = new ArrayList<>();
         parse(entryList);

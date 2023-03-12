@@ -36,7 +36,7 @@ public class TreeDisk
     public static final ImageIcon ICON_TXT=
             new ImageIcon("./src/Img/txt.png");
 
-    private JTree  m_tree;
+    private final JTree  m_tree;
     protected DefaultTreeModel m_model;
     protected JTextField m_display;
     protected JFrame frameDisk;
@@ -263,14 +263,12 @@ public class TreeDisk
     }
 
     public boolean isTextFile(File file) {
-        if (file.getName().endsWith(".txt") ||
-                file.getName().endsWith(".rtf") ||file.getName().endsWith(".md")
-                || file.getName().endsWith(".markdown")||file.getName().endsWith(".html") ||file.getName().endsWith(".htm")
-                ||file.getName().endsWith(".xml")||file.getName().endsWith(".json")||file.getName().endsWith(".yml")
-                ||file.getName().endsWith(".yaml")||file.getName().endsWith(".csv")
-                ||file.getName().endsWith(".tsv")||file.getName().endsWith(".sql"))
-            return true;
-        else return false;
+        return file.getName().endsWith(".txt") ||
+                file.getName().endsWith(".rtf") || file.getName().endsWith(".md")
+                || file.getName().endsWith(".markdown") || file.getName().endsWith(".html") || file.getName().endsWith(".htm")
+                || file.getName().endsWith(".xml") || file.getName().endsWith(".json") || file.getName().endsWith(".yml")
+                || file.getName().endsWith(".yaml") || file.getName().endsWith(".csv")
+                || file.getName().endsWith(".tsv") || file.getName().endsWith(".sql");
     }
 }
 
