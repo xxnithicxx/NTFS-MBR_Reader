@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import static Helper.Utils.*;
 
-// TODO: Add check that end of attribute
 public class NTFSEntryReader implements AutoCloseable {
     private String entryData;
     private int recordNumber;
@@ -39,6 +38,7 @@ public class NTFSEntryReader implements AutoCloseable {
 
         SectorReader sectorReader = new SectorReader(new FileInputStream(Global.mainPath), Global.bytesPerSector);
         String sectorData1 = bytesToHexString(sectorReader.readSector(startSector));
+        sectorReader = new SectorReader(new FileInputStream(Global.mainPath), Global.bytesPerSector);
         String sectorData2 = bytesToHexString(sectorReader.readSector(startSector + 1));
         entryDataBD.append(sectorData1).append(sectorData2);
 
@@ -91,12 +91,15 @@ public class NTFSEntryReader implements AutoCloseable {
                         parentRecordNumber =
                                 hexStringToDecimal(littleToBigEndian(getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + offset + currentOffset + 0x10), entryData, 6)));
 
+                        if (parentRecordNumber == 0 && childRecordNumber == 0)
+                            break;
+
                         if (parentRecordNumber == this.recordNumber && childRecordNumber != this.recordNumber) {
                             try {
                                 NTFSEntryReader reader = new NTFSEntryReader();
                                 ItemDataObject child = reader.readEntryFromMFT(childRecordNumber);
                                 if (child != null)
-                                    children.add(readEntryFromMFT(childRecordNumber));
+                                    children.add(child);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -169,12 +172,15 @@ public class NTFSEntryReader implements AutoCloseable {
                                 hexStringToDecimal(littleToBigEndian(getHexValueFromSector("0x" + Integer.toHexString((int) currentOffset + 0x10), indexAllocationData, 6)));
                         int entrySize = hexStringToDecimal(littleToBigEndian(getHexValueFromSector("0x" + Integer.toHexString((int) currentOffset + 0x08), indexAllocationData, 2)));
 
+                        if (parentRecordNumber == 0 && childRecordNumber == 0)
+                            break;
+
                         if (parentRecordNumber == this.recordNumber && childRecordNumber != this.recordNumber) {
                             try {
                                 NTFSEntryReader reader = new NTFSEntryReader();
                                 ItemDataObject child = reader.readEntryFromMFT(childRecordNumber);
                                 if (child != null)
-                                    children.add(readEntryFromMFT(childRecordNumber));
+                                    children.add(child);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -206,17 +212,18 @@ public class NTFSEntryReader implements AutoCloseable {
 
                     return new String(hexStringToByteArray(getHexValueFromSector("0x" + Integer.toHexString((int) offset + firstAttributeOffset), entryData, (int) size)));
                 } else {
-                    String offset = getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + 0x20), entryData, 2);
-                    int nextDataRunOffset = getNextDataRunOffset(getHexValueFromIndex(Integer.parseInt(offset) + firstAttributeOffset, entryData, 1));
+                    long offset = hexStringToDecimal(littleToBigEndian(getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + 0x20), entryData, 2)));
+                    int nextDataRunOffset = getNextDataRunOffset(getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + (int) offset), entryData, 1));
 
 //                    Get Data Run List
                     ArrayList<String> dataRunList = new ArrayList<>();
                     do {
                         String dataRun =
-                                getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + Integer.parseInt(offset, 16)), entryData, nextDataRunOffset);
+                                getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + (int) offset), entryData, nextDataRunOffset);
                         dataRunList.add(dataRun);
                         offset += nextDataRunOffset;
-                        nextDataRunOffset = getNextDataRunOffset(getHexValueFromIndex(Integer.parseInt(offset) + firstAttributeOffset, entryData, 1));
+                        nextDataRunOffset =
+                                getNextDataRunOffset(getHexValueFromSector("0x" + Integer.toHexString(firstAttributeOffset + (int) offset), entryData, 1));
                     } while (nextDataRunOffset != 0);
 
                     int clusterOffsetFromLastDataRun = 0;

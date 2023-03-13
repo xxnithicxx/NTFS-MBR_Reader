@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public class NTFSDirectoryTree implements DirTreeAbs {
-    private ItemDataObject root = null;
+    private ItemDataObject root;
 
     public NTFSDirectoryTree() {
         try (NTFSEntryReader NTFSEntryReader = new NTFSEntryReader()) {
-            root = NTFSEntryReader.readEntryFromMFT(5);
+//            Khởi tạo thông tin cho NTFS
+            NTFSReader ntfsReader = new NTFSReader();
+            this.root = NTFSEntryReader.readEntryFromMFT(5);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,12 +47,5 @@ public class NTFSDirectoryTree implements DirTreeAbs {
     @Override
     public ItemDataObject getRoot() {
         return this.root;
-    }
-
-    public static void main(String[] args) {
-        Global.mainPath = "\\\\.\\F:";
-        NTFSReader ntfsReader = new NTFSReader();
-        NTFSDirectoryTree n = new NTFSDirectoryTree();
-        System.out.println(n.getPath(n.getRoot()));
     }
 }

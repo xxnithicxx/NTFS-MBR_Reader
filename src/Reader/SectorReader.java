@@ -5,8 +5,6 @@ import Helper.Utils;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import static Helper.Utils.byteArrayToAsciiString;
 import static Helper.Utils.hexStringToByteArray;
@@ -38,7 +36,6 @@ public class SectorReader implements AutoCloseable{
         return Utils.hexStringToDecimal(Utils.littleToBigEndian(hexString));
     }
 
-//    TODO: Implement this method with NTFS file system
     public String readFileSystem(String sectorData)
     {
         String res=Utils.getHexValueFromSector("0x52",sectorData,8);

@@ -17,6 +17,9 @@ public class Utils {
     }
 
     public static String getHexValueFromIndex(int index, String inputString, int bytes) {
+        if (bytes <= 0)
+            return "";
+
         return inputString.substring(index, index + (bytes * 3) - 1);
     }
 

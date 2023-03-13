@@ -34,7 +34,7 @@ public class ItemDataObject {
             FATEntryReader FATEntryReader = new FATEntryReader(Global.mainPath);
             ArrayList<ArrayList<String>> entries;
 
-            entries = FATEntryReader.splitIntoItem(FATEntryReader.readEntryFromCluster(startCluster));
+            entries = Reader.FATEntryReader.splitIntoItem(FATEntryReader.readEntryFromCluster(startCluster));
 
             for (int i = 2; i < entries.size(); i++) {
                 ItemEntry itemEntry = new ItemEntry(entries.get(i));
@@ -170,7 +170,9 @@ public class ItemDataObject {
     }
 
     public String getTxtData() {
-//        TODO: Check if this is NTFS or FAT32
+        if (Global.MFTStart != 0)
+            return this.content;
+
         byte[] bytes;
 
         if (this.getStartCluster() == 0)
