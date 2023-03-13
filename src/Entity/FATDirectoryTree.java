@@ -1,6 +1,6 @@
 package Entity;
 
-import Reader.EntryReader;
+import Reader.FATEntryReader;
 
 import java.util.*;
 
@@ -8,8 +8,8 @@ public class FATDirectoryTree implements DirTreeAbs {
     private ItemDataObject root = null;
 
     public FATDirectoryTree() {
-        try (EntryReader entryReader = new EntryReader(Global.mainPath)) {
-            ArrayList<ArrayList<String>> entry = EntryReader.splitIntoItem(entryReader.readEntryFromRDET());
+        try (FATEntryReader FATEntryReader = new FATEntryReader(Global.mainPath)) {
+            ArrayList<ArrayList<String>> entry = Reader.FATEntryReader.splitIntoItem(FATEntryReader.readEntryFromRDET());
             this.initRoot(entry);
         }
     }

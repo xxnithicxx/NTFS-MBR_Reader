@@ -6,10 +6,9 @@ import Helper.Utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
-public class EntryReader implements AutoCloseable {
+public class FATEntryReader implements AutoCloseable {
     private final String filePath;
     private int nSectorPerCl;
     private int numberOfFat;
@@ -17,7 +16,7 @@ public class EntryReader implements AutoCloseable {
     private int nSectorPerBs;
     private int sizeFAT;
 
-    public EntryReader(String filePath) {
+    public FATEntryReader(String filePath) {
         this.filePath = filePath;
         this.getInfo();
     }
@@ -114,7 +113,7 @@ public class EntryReader implements AutoCloseable {
         }
 
         String[] entryArray;
-        try (EntryReader reader = new EntryReader(Global.mainPath)) {
+        try (FATEntryReader reader = new FATEntryReader(Global.mainPath)) {
             entryArray = reader.readEntry(entryHexString.toString());
         }
 
@@ -143,7 +142,7 @@ public class EntryReader implements AutoCloseable {
         }
 
         String[] entryArray;
-        try (EntryReader reader = new EntryReader(Global.mainPath)) {
+        try (FATEntryReader reader = new FATEntryReader(Global.mainPath)) {
             entryArray = reader.readEntry(entryHexString.toString());
         }
 
@@ -194,15 +193,6 @@ public class EntryReader implements AutoCloseable {
 
     @Override
     public void close() {
-
-    }
-
-    public static void main(String[] args) throws IOException {
-        String filePath = "\\\\.\\D:";
-
-        try (EntryReader entryReader = new EntryReader(filePath)) {
-            System.out.println(Arrays.toString(entryReader.readEntryFromRDET()));
-        }
 
     }
 }

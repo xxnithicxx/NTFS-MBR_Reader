@@ -26,7 +26,6 @@ public class Utils {
         return getHexValueFromIndex(decimalIndex,inputString,bytes);
     }
 
-
     public static String bytesToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {

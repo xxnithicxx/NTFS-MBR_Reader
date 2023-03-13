@@ -1,14 +1,14 @@
 package Entity;
 
-import Reader.EntryReader;
+import Reader.FATEntryReader;
 
 public class FileSystemFactory {
     public static DirTreeAbs getFileSystem() {
-        try (EntryReader ignored = new EntryReader(Global.mainPath)) {
+        try (FATEntryReader ignored = new FATEntryReader(Global.mainPath)) {
             if (Global.fileSystem.contains("FAT32")) {
                 return new FATDirectoryTree();
             } else {
-                return null;
+                return new NTFSDirectoryTree();
             }
         }
     }

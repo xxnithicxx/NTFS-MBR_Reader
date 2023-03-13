@@ -6,7 +6,7 @@
 package Entity;
 
 import Reader.DataReader;
-import Reader.EntryReader;
+import Reader.FATEntryReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,10 +31,10 @@ public class ItemDataObject {
         if (isFolder) {
             this.childrens = new ArrayList<>();
 
-            EntryReader entryReader = new EntryReader(Global.mainPath);
+            FATEntryReader FATEntryReader = new FATEntryReader(Global.mainPath);
             ArrayList<ArrayList<String>> entries;
 
-            entries = EntryReader.splitIntoItem(entryReader.readEntryFromCluster(startCluster));
+            entries = FATEntryReader.splitIntoItem(FATEntryReader.readEntryFromCluster(startCluster));
 
             for (int i = 2; i < entries.size(); i++) {
                 ItemEntry itemEntry = new ItemEntry(entries.get(i));
@@ -60,6 +60,23 @@ public class ItemDataObject {
             this.childrens.add(item);
         }
     }
+
+    public ItemDataObject(String name, long size, String status, boolean isFolder, ArrayList<ItemDataObject> children) {
+        this.name = name;
+        this.size = size;
+        this.status = status;
+        this.isFolder = isFolder;
+        this.childrens = children;
+    }
+
+    public ItemDataObject(String name, long size, String status, String data, boolean isFolder) {
+        this.name = name;
+        this.size = size;
+        this.status = status;
+        this.isFolder = isFolder;
+        this.content = data;
+    }
+
 
     public long getSize() {
         if (!this.isFolder) {

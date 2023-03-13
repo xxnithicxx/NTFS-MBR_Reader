@@ -4,10 +4,9 @@ import Entity.Global;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import static Reader.EntryReader.startSectorFromCluster;
+import static Reader.FATEntryReader.startSectorFromCluster;
 
 public class DataReader implements AutoCloseable {
     public byte[] read(int clusterIndex) {
